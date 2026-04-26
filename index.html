@@ -250,30 +250,44 @@
   .foot-links{display:flex;gap:18px}
   .foot-links a:hover{color:var(--ink)}
 
-  /* === HAMBURGER + 모바일 풀스크린 메뉴 === */
-  .hamburger{display:none;background:#fff;border:1.5px solid var(--ink);padding:8px;cursor:pointer;color:var(--ink);border-radius:12px;line-height:0;box-shadow:var(--shadow-soft)}
+  /* === HAMBURGER + 모바일 드롭다운 메뉴 (화면 안 가림) === */
+  .hamburger{display:none;background:#fff;border:1.5px solid var(--ink);padding:8px;cursor:pointer;color:var(--ink);border-radius:12px;line-height:0;box-shadow:var(--shadow-soft);transition:.18s}
   .hamburger:active{transform:scale(.94)}
+  .hamburger.open{background:var(--coral);color:#fff;border-color:var(--ink)}
   .hamburger svg{display:block}
 
-  .mobile-menu{position:fixed;inset:0;background:var(--paper);z-index:200;display:flex;flex-direction:column;padding:20px;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;visibility:hidden}
-  .mobile-menu.open{transform:translateX(0);visibility:visible}
-  .mobile-menu .mm-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-  .mobile-menu .mm-brand{display:flex;align-items:center;gap:10px}
-  .mobile-menu .mm-brand .logo-mini{width:40px;height:40px;border-radius:10px;overflow:hidden;border:1.5px solid var(--ink)}
-  .mobile-menu .mm-brand .logo-mini img{width:100%;height:100%;display:block;object-fit:cover}
-  .mobile-menu .mm-brand b{font-size:17px;letter-spacing:-.01em}
-  .mobile-menu .mm-brand small{display:block;font-size:11px;color:var(--ink-3);font-weight:600}
-  .mobile-menu .mm-close{background:#fff;border:1.5px solid var(--ink);border-radius:14px;width:44px;height:44px;cursor:pointer;font-size:18px;font-weight:800;line-height:1;color:var(--ink);box-shadow:var(--shadow-soft)}
-  .mobile-menu .menu-link{display:flex;align-items:center;gap:14px;padding:18px 20px;background:#fff;border:1.5px solid var(--ink);border-radius:18px;margin-bottom:10px;font-size:16px;font-weight:800;color:var(--ink);text-align:left;text-decoration:none;cursor:pointer;width:100%;font-family:inherit;transition:.18s}
+  /* 드롭다운 — 헤더 아래로 펼쳐짐, 페이지 콘텐츠 위에 떠 있음 */
+  .mobile-menu{
+    position:fixed;
+    top:74px;
+    left:16px;
+    right:16px;
+    max-height:0;
+    overflow:hidden;
+    background:#fff;
+    border:1.5px solid transparent;
+    border-radius:22px;
+    z-index:60;
+    transition:max-height .35s ease, padding .3s ease, border-color .3s ease, box-shadow .3s ease;
+    padding:0 12px;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+  }
+  .mobile-menu.open{
+    max-height:calc(100vh - 100px);
+    overflow-y:auto;
+    padding:12px;
+    border-color:var(--ink);
+    box-shadow:0 24px 48px -12px rgba(31,26,23,.25);
+  }
+  .mobile-menu .menu-link{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:1.5px solid var(--ink);border-radius:14px;margin-bottom:8px;font-size:15px;font-weight:800;color:var(--ink);text-align:left;text-decoration:none;cursor:pointer;width:100%;font-family:inherit;transition:.18s}
+  .mobile-menu .menu-link:last-child{margin-bottom:0}
   .mobile-menu .menu-link:active{transform:scale(.98)}
-  .mobile-menu .menu-link.active{background:var(--coral);color:#fff;box-shadow:0 4px 0 #b33d1e}
-  .mobile-menu .menu-link .ic{font-size:20px;line-height:1}
-  .mobile-menu .menu-link .arr{margin-left:auto;color:var(--ink-3);font-size:14px}
-  .mobile-menu .menu-link.active .arr{color:rgba(255,255,255,.7)}
-  .mobile-menu .menu-link.cta{background:var(--coral);color:#fff;box-shadow:0 4px 0 #b33d1e}
+  .mobile-menu .menu-link.active{background:var(--coral);color:#fff;box-shadow:0 3px 0 #b33d1e}
+  .mobile-menu .menu-link .ic{font-size:18px;line-height:1;flex:none;width:24px;text-align:center}
+  .mobile-menu .menu-link .arr{margin-left:auto;color:var(--ink-3);font-size:13px}
+  .mobile-menu .menu-link.active .arr{color:rgba(255,255,255,.75)}
+  .mobile-menu .menu-link.cta{background:var(--coral);color:#fff;box-shadow:0 3px 0 #b33d1e}
   .mobile-menu .menu-link.cta .arr{color:rgba(255,255,255,.85)}
-  .mobile-menu .mm-foot{margin-top:auto;padding-top:24px;font-size:12px;color:var(--ink-3);font-weight:700;text-align:center;line-height:1.6}
-  body.menu-open{overflow:hidden}
 
   @media(max-width:960px){
     .hamburger{display:block}
@@ -404,8 +418,27 @@
     .foot-links{flex-wrap:wrap;gap:12px}
   }
 
-  /* 모든 인라인 grid (style 속성에 grid-template-columns 직접 박힌 것) — 모바일에서 1열로 강제 */
-  @media(max-width:720px){
+  /* === 스크롤 텔링 3씬 (.scene) 모바일 1열 — 가장 중요 === */
+  @media(max-width:960px){
+    .scene,
+    .scene.reverse{
+      grid-template-columns:1fr !important;
+      grid-template-areas:none !important;
+      gap:36px !important;
+      padding:56px 0 !important;
+    }
+    .scene .scene-stage,
+    .scene.reverse .scene-stage{order:1 !important;grid-area:auto !important;min-height:auto !important}
+    .scene .scene-text,
+    .scene.reverse .scene-text{order:2 !important;grid-area:auto !important}
+    .scene-text h3{font-size:28px}
+    .scene-text p{font-size:15px}
+    .scene-text .feat-pts li{font-size:14px}
+    .s-phone{width:280px;height:580px}
+  }
+
+  /* 인라인 grid 처리 — 720 → 960 (좁은 데스크톱·태블릿도 잡히게) */
+  @media(max-width:960px){
     main div[style*="grid-template-columns:1fr 280px"],
     main div[style*="grid-template-columns:280px 1fr"],
     main div[style*="grid-template-columns:1fr 1fr"],
@@ -414,9 +447,8 @@
     main div[style*="grid-template-columns:1fr 1fr 1fr"],
     main div[style*="grid-template-columns:auto 1fr"]{
       grid-template-columns:1fr !important;
-      gap:14px !important;
+      gap:18px !important;
     }
-    /* 미니 위젯 3종 같이 작은 건 그대로 두되 폭만 안 깨지게 */
     main .ex-mini-widgets[style*="grid-template-columns"]{
       grid-template-columns:1fr 1fr 1fr !important;
     }
@@ -1346,27 +1378,17 @@
   </div>
 </header>
 
-<!-- 모바일 풀스크린 메뉴 -->
-<aside class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="모바일 메뉴">
-  <div class="mm-head">
-    <div class="mm-brand">
-      <span class="logo-mini"><img src="app_icon_512.png" alt="" /></span>
-      <div><b>미세먼지 알리미</b><small>Android · v1.0.0</small></div>
-    </div>
-    <button class="mm-close" id="mobileMenuClose" aria-label="메뉴 닫기" type="button">✕</button>
-  </div>
-  <nav>
-    <button class="menu-link" data-go="home"><span class="ic">🏠</span>홈<span class="arr">→</span></button>
-    <button class="menu-link cta" data-go="try"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></button>
-    <button class="menu-link" data-go="search"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></button>
-    <button class="menu-link" data-go="map"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></button>
-    <button class="menu-link" data-go="extras"><span class="ic">💊</span>부가기능<span class="arr">→</span></button>
-    <button class="menu-link" data-go="advice"><span class="ic">📒</span>조언<span class="arr">→</span></button>
-    <button class="menu-link" data-go="story"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></button>
-    <button class="menu-link" data-go="donors"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></button>
-    <button class="menu-link" data-go="download"><span class="ic">📲</span>다운로드<span class="arr">→</span></button>
-  </nav>
-  <div class="mm-foot">© 2026 신재우 · 미세먼지 알리미<br/>1인 개발 · 첫 앱</div>
+<!-- 모바일 드롭다운 메뉴 (햄버거 아래 펼쳐짐) -->
+<aside class="mobile-menu" id="mobileMenu" role="menu" aria-label="모바일 메뉴">
+  <button class="menu-link" data-go="home"><span class="ic">🏠</span>홈<span class="arr">→</span></button>
+  <button class="menu-link cta" data-go="try"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></button>
+  <button class="menu-link" data-go="search"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></button>
+  <button class="menu-link" data-go="map"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></button>
+  <button class="menu-link" data-go="extras"><span class="ic">💊</span>부가기능<span class="arr">→</span></button>
+  <button class="menu-link" data-go="advice"><span class="ic">📒</span>조언<span class="arr">→</span></button>
+  <button class="menu-link" data-go="story"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></button>
+  <button class="menu-link" data-go="donors"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></button>
+  <button class="menu-link" data-go="download"><span class="ic">📲</span>다운로드<span class="arr">→</span></button>
 </aside>
 
 <!-- ============ HOME ============ -->
@@ -3824,11 +3846,18 @@
   const validIds = new Set(Array.from(pages).map(p=>p.id));
   const mobileMenu = document.getElementById('mobileMenu');
 
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
   function closeMobileMenu(){
-    if(mobileMenu){ mobileMenu.classList.remove('open'); document.body.classList.remove('menu-open'); }
+    if(mobileMenu){ mobileMenu.classList.remove('open'); }
+    if(hamburgerBtn){ hamburgerBtn.classList.remove('open'); hamburgerBtn.setAttribute('aria-label','메뉴 열기'); }
   }
   function openMobileMenu(){
-    if(mobileMenu){ mobileMenu.classList.add('open'); document.body.classList.add('menu-open'); }
+    if(mobileMenu){ mobileMenu.classList.add('open'); }
+    if(hamburgerBtn){ hamburgerBtn.classList.add('open'); hamburgerBtn.setAttribute('aria-label','메뉴 닫기'); }
+  }
+  function toggleMobileMenu(){
+    if(mobileMenu?.classList.contains('open')) closeMobileMenu();
+    else openMobileMenu();
   }
 
   function go(id, opts={}){
@@ -3848,9 +3877,18 @@
     go(l.dataset.go);
   }));
 
-  // 햄버거 메뉴 토글
-  document.getElementById('hamburgerBtn')?.addEventListener('click', openMobileMenu);
-  document.getElementById('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
+  // 햄버거 메뉴 토글 (드롭다운)
+  hamburgerBtn?.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+  // 외부 클릭 시 닫기
+  document.addEventListener('click', (e)=>{
+    if(!mobileMenu?.classList.contains('open')) return;
+    if(mobileMenu.contains(e.target)) return;
+    if(hamburgerBtn?.contains(e.target)) return;
+    closeMobileMenu();
+  });
   // ESC로 닫기
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape' && mobileMenu?.classList.contains('open')) closeMobileMenu();

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="keywords" content="미세먼지 농도, 미세먼지 측정, 미세먼지 농도 측정, PM2.5, PM10, 우리 동네 미세먼지, 현재 위치 미세먼지, 미세먼지 알림 앱, 자외선 지수, 미세먼지 알리미, 안드로이드 미세먼지, 어르신 미세먼지 앱, 미세먼지 위젯, 호흡기 약 알림, 응급실 약국 찾기, 미세먼지 일기, OpenMeteo" />
+<meta name="author" content="미세먼지 알리미" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#FF6B47" />
+
+<!-- Open Graph / 메신저·SNS 공유 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="응급·보건·약국 — 미세먼지 알리미" />
+<meta property="og:description" content="응급의료센터·보건소·약국을 네이버 지도 위에. 119 슬라이드콜로 위급 시 한 동작에." />
+<meta property="og:image" content="app_icon_512.png" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:site_name" content="미세먼지 알리미" />
+
+<!-- 트위터 카드 -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="미세먼지 알리미 — 우리 동네 미세먼지 1초 측정" />
+<meta name="twitter:description" content="PM2.5·PM10·자외선·온도까지 무료로. 안드로이드 앱 2026.05.15 출시." />
+<meta name="twitter:image" content="app_icon_512.png" />
+
+<title>응급·보건·약국 — 미세먼지 알리미</title>
+<meta name="description" content="응급의료센터·보건소·약국을 네이버 지도 위에. 119 슬라이드콜로 위급 시 한 동작에." />
+<!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
+<!-- <link rel="canonical" href="https://your-domain.com/" /> -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="icon" href="app_icon_512.png" type="image/png" />
+<link rel="apple-touch-icon" href="app_icon_512.png" />
+
+<!-- Schema.org 구조화 데이터 — 검색 결과 풍부 표시 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "name": "미세먼지 알리미",
+      "operatingSystem": "Android 8.0+",
+      "applicationCategory": "HealthApplication",
+      "description": "PM2.5·PM10·자외선·바람·온도를 한 화면에. 응급실·약국·복약 리마인더·미세먼지 일기까지 통합한 모든 연령용 미세먼지 앱.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+      "datePublished": "2026-05-15",
+      "inLanguage": "ko-KR",
+      "image": "app_icon_512.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "미세먼지 알리미",
+      "inLanguage": "ko-KR",
+      "description": "현재 위치 미세먼지 농도 무료 측정. PM2.5·PM10 실시간 확인."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "미세먼지 농도는 어떻게 측정하나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "이 페이지에서 위치 권한을 허용하시면 1초 안에 우리 동네 PM2.5와 PM10 농도를 확인할 수 있어요. 데이터는 OpenMeteo Air Quality API를 통해 실시간으로 가져옵니다."}},
+        {"@type": "Question", "name": "PM2.5와 PM10의 차이는 무엇인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM10은 지름 10μm 이하의 미세먼지로 코·기관지에 걸려 자극을 유발해요. PM2.5는 지름 2.5μm 이하의 초미세먼지로 폐포까지 침투해 혈관으로 이동할 수 있어 더 위험합니다."}},
+        {"@type": "Question", "name": "미세먼지 '나쁨'은 몇 ㎍/㎥부터인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM2.5 기준 76㎍/㎥ 이상부터 '나쁨', 151㎍/㎥ 이상은 '매우 나쁨'입니다. '나쁨' 단계에서는 KF94 마스크 착용과 외출 단축을 권장해요."}},
+        {"@type": "Question", "name": "이 데이터는 어디서 오나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "체험 페이지는 OpenMeteo의 무료 공개 API를 사용합니다. 실제 안드로이드 앱은 에어코리아·서울 열린데이터·AQICN·OpenMeteo·기상청 5개 공식 소스를 비교해 가장 안전한 등급을 보여줍니다."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-logo" style="overflow:hidden;background:none;padding:0">
+        <img id="app-logo" src="app_icon_512.png" alt="미세먼지 알리미" style="width:100%;height:100%;display:block;object-fit:cover" />
+      </span>
+      <div><b>미세먼지 알리미</b><small>Android · v1.0.0</small></div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link active" href="index.html">홈</a>
+      <a class="nav-link"   style="background:var(--coral);color:#fff" href="try.html">🌫 체험해보기</a>
+      <a class="nav-link" href="search.html">장소·대기·날씨</a>
+      <a class="nav-link" href="map.html">응급·보건·약국</a>
+      <a class="nav-link" href="extras.html">부가기능</a>
+      <a class="nav-link" href="advice.html">조언</a>
+      <a class="nav-link" href="story.html">만든 이야기</a>
+      <a class="nav-link" href="donors.html">응원해주신 분들</a>
+      <a class="nav-link" href="download.html">다운로드</a>
+    </nav>
+    <a class="btn btn-coral nav-cta" href="download.html">앱 받기</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<aside class="mobile-menu" id="mobileMenu" role="menu" aria-label="모바일 메뉴">
+  <a class="menu-link" href="index.html"><span class="ic">🏠</span>홈<span class="arr">→</span></a>
+  <a class="menu-link cta" href="try.html"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></a>
+  <a class="menu-link" href="search.html"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></a>
+  <a class="menu-link" href="map.html"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></a>
+  <a class="menu-link" href="extras.html"><span class="ic">💊</span>부가기능<span class="arr">→</span></a>
+  <a class="menu-link" href="advice.html"><span class="ic">📒</span>조언<span class="arr">→</span></a>
+  <a class="menu-link" href="story.html"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></a>
+  <a class="menu-link" href="donors.html"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></a>
+  <a class="menu-link" href="download.html"><span class="ic">📲</span>다운로드<span class="arr">→</span></a>
+</aside>
+<main id="map" class="page active">
+  <section class="block" style="padding-top:32px">
+    <div class="container">
+      <span class="eyebrow">기능 2 · 응급·보건·약국</span>
+      <h2 class="section-title">응급실과 보건소가<br/>바로 옆에.</h2>
+      <p class="section-sub">갑자기 몸이 안 좋을 때, 지도 앱을 따로 켜고 검색할 필요 없어요. 앱 열면 <b>응급의료센터·보건소(반경 30km)</b>와 <b>약국(반경 2km)</b>이 네이버 지도 위에 한 번에. 국립중앙의료원 응급의료정보센터 데이터.</p>
+
+      <div class="split" style="margin-top:48px">
+        <!-- LEFT: map -->
+        <div>
+          <div class="map-wrap">
+            <div class="map-card"><b>📍 현재 위치</b>강남구 역삼동 · 병원 30km / 약국 2km</div>
+            <div style="position:absolute;top:18px;right:18px;background:var(--ink);color:#fff;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:800;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow-soft)">🗺 NAVER MAPS</div>
+            <svg viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="dotsB2" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <circle cx="12" cy="12" r="1.4" fill="#F0E2D0"/>
+                </pattern>
+              </defs>
+              <rect width="600" height="480" fill="url(#dotsB2)"/>
+              <path d="M0,260 C160,210 240,310 360,280 S540,200 600,240 L600,480 L0,480 Z" fill="#FFE0AC" opacity=".6"/>
+              <path d="M0,180 C140,150 240,210 320,200 S540,140 600,170" fill="none" stroke="#FF8A65" stroke-width="3" stroke-dasharray="6 6"/>
+              <circle cx="300" cy="240" r="160" fill="#FFB627" opacity=".18"/>
+              <circle cx="300" cy="240" r="160" fill="none" stroke="#1F1A17" stroke-dasharray="6 6" stroke-width="1.5"/>
+              <circle cx="300" cy="240" r="14" fill="#1F1A17"/>
+              <circle cx="300" cy="240" r="6" fill="#FF6B47"/>
+              <text x="306" y="248" font-family="Pretendard" font-size="11" font-weight="800" fill="#FF6B47">YOU</text>
+              <g font-family="Pretendard" font-size="11" font-weight="800" fill="#fff" stroke="#1F1A17" stroke-width="1.5">
+                <circle cx="220" cy="190" r="16" fill="#EF4444"/><text x="220" y="195" text-anchor="middle" stroke="none">🚑</text>
+                <circle cx="380" cy="160" r="16" fill="#EF4444"/><text x="380" y="165" text-anchor="middle" stroke="none">🚑</text>
+                <circle cx="430" cy="290" r="16" fill="#3DBE7A"/><text x="430" y="294" text-anchor="middle" stroke="none">💊</text>
+                <circle cx="240" cy="320" r="16" fill="#3DBE7A"/><text x="240" y="324" text-anchor="middle" stroke="none">💊</text>
+                <circle cx="180" cy="280" r="16" fill="#FFB627"/><text x="180" y="284" text-anchor="middle" stroke="none">🏥</text>
+                <circle cx="340" cy="340" r="16" fill="#FF6B47"/><text x="340" y="345" text-anchor="middle" stroke="none">24h</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Map view modes (지도 크게/반반/목록 크게) — 실제 앱 토글 -->
+          <div class="map-toolbar">
+            <span class="map-mode">지도 크게</span>
+            <span class="map-mode on">반반</span>
+            <span class="map-mode">목록 크게</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: filter + list -->
+        <div>
+          <h3 style="font-size:32px;letter-spacing:-.02em;margin:0 0 14px;font-weight:800;line-height:1.15">필터 한 번이면<br/>가장 가까운 곳부터.</h3>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.7;margin:0 0 14px">호흡기 응급, 24시간 약국, 가까운 보건소까지. 거리순 정렬 + 영업 중인 곳만 필터링.</p>
+
+          <div class="fac-filter">
+            <span class="fac-pill on"><span class="em">🚑</span>응급의료</span>
+            <span class="fac-pill"><span class="em">💊</span>약국</span>
+            <span class="fac-pill"><span class="em">🏥</span>보건소</span>
+            <span class="fac-pill"><span class="em">🌙</span>24시간만</span>
+          </div>
+
+          <div class="fac-list">
+            <div class="fac-item">
+              <div class="fac-ic e">🚑</div>
+              <div class="fac-body"><b>강남세브란스병원 응급실</b><small>응급의료센터 · 24시간 운영</small>
+                <div class="fac-actions"><a>📞 전화</a><a>🗺 길찾기</a><a>📋 주소복사</a></div>
+              </div>
+              <div class="fac-meta"><span class="dist">약 1.3km</span><span class="opn on">🟢 영업중</span></div>
+            </div>
+            <div class="fac-item is-24h">
+              <div class="fac-ic p">💊<span class="h24">24h</span></div>
+              <div class="fac-body"><b>강남365 약국</b><small>24시간 운영 · 처방전 가능</small>
+                <div class="fac-actions"><a>📞 전화</a><a>🗺 길찾기</a></div>
+              </div>
+              <div class="fac-meta"><span class="dist">1.1km</span><span class="opn on">🟢 영업중</span></div>
+            </div>
+            <div class="fac-item">
+              <div class="fac-ic h">🏥</div>
+              <div class="fac-body"><b>강남구 보건소</b><small>일반진료·예방접종 · 09–18시</small>
+                <div class="fac-actions"><a>📞 전화</a><a>🗺 길찾기</a></div>
+              </div>
+              <div class="fac-meta"><span class="dist">820m</span><span class="opn on">🟢 영업중</span></div>
+            </div>
+            <div class="fac-item">
+              <div class="fac-ic e">🚑</div>
+              <div class="fac-body"><b>의료법인 봉의재단 강남고려병원</b><small>응급의료센터 · 24시간</small>
+                <div class="fac-actions"><a>📞 전화</a><a>🗺 길찾기</a></div>
+              </div>
+              <div class="fac-meta"><span class="dist">3.0km</span><span class="opn on">🟢 영업중</span></div>
+            </div>
+            <div class="fac-item">
+              <div class="fac-ic p">💊</div>
+              <div class="fac-body"><b>온누리 약국</b><small>역삼점 · 09–22시</small>
+                <div class="fac-actions"><a>📞 전화</a><a>🗺 길찾기</a></div>
+              </div>
+              <div class="fac-meta"><span class="dist">410m</span><span class="opn on">🟢 영업중</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 실제 지도 화면 -->
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 280px;gap:32px;align-items:center;padding:24px;background:#fff;border:1.5px solid var(--ink);border-radius:24px;box-shadow:var(--shadow-soft)">
+        <div>
+          <span class="eyebrow" style="background:var(--cream-2)">📸 실제 앱 화면</span>
+          <h3 style="margin:10px 0 8px;font-size:22px;letter-spacing:-.01em;font-weight:800">앱에서는 이렇게 보여요.</h3>
+          <p style="margin:0;font-size:15px;color:var(--ink-2);line-height:1.7">네이버 지도 위에 응급의료센터·보건소·약국이 핀으로 표시되고, 아래엔 거리순 리스트. 지도 크게 / 반반 / 목록 크게 세 가지 보기 모드를 전환할 수 있어요.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+            <span class="tag" style="background:var(--cream-2)">네이버 지도</span>
+            <span class="tag" style="background:var(--cream-2)">병원 30km</span>
+            <span class="tag" style="background:var(--cream-2)">약국 2km</span>
+            <span class="tag" style="background:var(--cream-2)">국립중앙의료원</span>
+          </div>
+        </div>
+        <div class="er-real-phone" style="max-width:240px;border-width:6px"><img src="app_screens/cropped/screen_06.png" alt="앱 — 실제 응급·보건 안내 지도" loading="lazy" /></div>
+      </div>
+
+      <!-- 데이터 출처 안내 -->
+      <div class="disclaim">
+        <b>📎 데이터 출처 안내.</b> 이 목록은 <b>국립중앙의료원 응급의료정보센터</b> 공공데이터에 등재된 응급의료센터·보건소·약국만 모은 것이에요. 일반 병·의원은 포함되지 않으니 가벼운 증상이라면 평소 다니시는 병원을 이용하세요. 휴무·운영시간은 변동될 수 있으니 현지 문의로 재확인하시고, 응급 상황은 <b>119</b>가 가장 빠릅니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- 119 슬라이드콜 hero -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <div class="em119">
+        <span class="eyebrow" style="background:#fff;color:#DC2626;border-color:#fff;display:inline-flex;align-items:center;gap:6px">🚨 119 슬라이드콜</span>
+        <h3 style="margin-top:14px">위급할 땐, 한 동작으로.<br/>슬라이드 한 번에 119 + 스피커 자동.</h3>
+        <p>호흡 곤란, 천식 발작, 갑작스런 가슴 답답함 — 어르신이 손이 떨려도, 통화 버튼을 못 찾아도, <b>슬라이드 한 번이면 119로 바로 연결</b>되고 자동으로 스피커폰이 켜져요. 한 동작에 닿는 안전 장치예요.</p>
+        <div class="slide">→ 밀어서 119 호출</div>
+        <div class="warn">
+          <b style="color:#FFD7BD">⚖️ 오남용 방지 안내.</b> 허위·장난 신고는 경범죄처벌법상 최대 60만원 벌금 또는 구류, 반복 시 형법상 위계공무집행방해(5년 이하 징역). 응급 자원은 한정돼 있어 허위 신고 한 건이 다른 생명을 위험에 빠뜨릴 수 있다는 점 기억해 주세요. <b>처음 사용 시 안내 다이얼로그</b>가 떠요.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 사용 시나리오 3가지 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">💡 어떤 순간에 도움이 될까요?</span>
+      <h2 class="section-title">갑자기 몸이 안 좋을 때,<br/>망설일 시간이 없어요.</h2>
+      <p class="section-sub">앱이 만들어진 이유 — 산책 중 컨디션이 안 좋을 때, 어르신이 약국을 찾으실 때, 그리고 진짜 응급한 순간.</p>
+
+      <div class="feat-grid">
+        <div class="feat-card" style="background:#FFE5D6">
+          <div class="feat-icon">🚶</div>
+          <h3 class="feat-h">산책 중 갑자기</h3>
+          <p class="feat-p">"숨이 좀 차네, 가까운 곳에 약국 있을까?" 앱 열면 바로 가장 가까운 약국이 거리·영업시간과 함께 떠요.</p>
+        </div>
+        <div class="feat-card" style="background:#E8F5DA">
+          <div class="feat-icon">👵</div>
+          <h3 class="feat-h">어르신, 처음 가는 동네</h3>
+          <p class="feat-p">자녀 집에 가셨다 약이 떨어졌을 때, 24시간 약국 필터로 한 번에. 큰 글씨, 큰 버튼, 슬라이드 콜.</p>
+        </div>
+        <div class="feat-card" style="background:#FFE7B2">
+          <div class="feat-icon">🚨</div>
+          <h3 class="feat-h">호흡기 응급</h3>
+          <p class="feat-p">미세먼지 매우 나쁨 + 천식·COPD 환자. 호흡 곤란 시 슬라이드 한 번에 119 + 스피커 자동, 응급실 위치까지.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+  <div class="dm-card">
+    <div class="dm-em">☕</div>
+    <h3 id="dmTitle">후원해주셔서<br/><b>정말 감사합니다!</b></h3>
+    <p>후원자 명단에 <b>보내시는 분 이름</b>을 올려도 될까요?<br/>표시할 이름은 닉네임으로 바꾸실 수 있어요.</p>
+    <div class="dm-btns">
+      <button class="dm-btn dm-yes" id="dmYes" type="button">✅ 예 — 명단에 올려주세요</button>
+      <button class="dm-btn dm-no" id="dmNo" type="button">아니요 — 익명으로 후원할게요</button>
+    </div>
+    <div class="dm-note">'예'를 선택하시면 짧은 폼이 새 탭에 열려요<br/>(이름 · 이메일 · 송금일 · 한 마디 응원)</div>
+  </div>
+<footer>
+  <div class="container foot-grid">
+    <div>© 2026 신재우 · 미세먼지 알리미 · Made with care 💛</div>
+    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

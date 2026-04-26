@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="keywords" content="미세먼지 농도, 미세먼지 측정, 미세먼지 농도 측정, PM2.5, PM10, 우리 동네 미세먼지, 현재 위치 미세먼지, 미세먼지 알림 앱, 자외선 지수, 미세먼지 알리미, 안드로이드 미세먼지, 어르신 미세먼지 앱, 미세먼지 위젯, 호흡기 약 알림, 응급실 약국 찾기, 미세먼지 일기, OpenMeteo" />
+<meta name="author" content="미세먼지 알리미" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#FF6B47" />
+
+<!-- Open Graph / 메신저·SNS 공유 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="조언 — 미세먼지 알리미" />
+<meta property="og:description" content="환경부·질병관리청·식약처 자료 35+ 카드. 5등급 행동요령. 일일 퀴즈로 레벨업." />
+<meta property="og:image" content="app_icon_512.png" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:site_name" content="미세먼지 알리미" />
+
+<!-- 트위터 카드 -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="미세먼지 알리미 — 우리 동네 미세먼지 1초 측정" />
+<meta name="twitter:description" content="PM2.5·PM10·자외선·온도까지 무료로. 안드로이드 앱 2026.05.15 출시." />
+<meta name="twitter:image" content="app_icon_512.png" />
+
+<title>조언 — 미세먼지 알리미</title>
+<meta name="description" content="환경부·질병관리청·식약처 자료 35+ 카드. 5등급 행동요령. 일일 퀴즈로 레벨업." />
+<!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
+<!-- <link rel="canonical" href="https://your-domain.com/" /> -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="icon" href="app_icon_512.png" type="image/png" />
+<link rel="apple-touch-icon" href="app_icon_512.png" />
+
+<!-- Schema.org 구조화 데이터 — 검색 결과 풍부 표시 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "name": "미세먼지 알리미",
+      "operatingSystem": "Android 8.0+",
+      "applicationCategory": "HealthApplication",
+      "description": "PM2.5·PM10·자외선·바람·온도를 한 화면에. 응급실·약국·복약 리마인더·미세먼지 일기까지 통합한 모든 연령용 미세먼지 앱.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+      "datePublished": "2026-05-15",
+      "inLanguage": "ko-KR",
+      "image": "app_icon_512.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "미세먼지 알리미",
+      "inLanguage": "ko-KR",
+      "description": "현재 위치 미세먼지 농도 무료 측정. PM2.5·PM10 실시간 확인."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "미세먼지 농도는 어떻게 측정하나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "이 페이지에서 위치 권한을 허용하시면 1초 안에 우리 동네 PM2.5와 PM10 농도를 확인할 수 있어요. 데이터는 OpenMeteo Air Quality API를 통해 실시간으로 가져옵니다."}},
+        {"@type": "Question", "name": "PM2.5와 PM10의 차이는 무엇인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM10은 지름 10μm 이하의 미세먼지로 코·기관지에 걸려 자극을 유발해요. PM2.5는 지름 2.5μm 이하의 초미세먼지로 폐포까지 침투해 혈관으로 이동할 수 있어 더 위험합니다."}},
+        {"@type": "Question", "name": "미세먼지 '나쁨'은 몇 ㎍/㎥부터인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM2.5 기준 76㎍/㎥ 이상부터 '나쁨', 151㎍/㎥ 이상은 '매우 나쁨'입니다. '나쁨' 단계에서는 KF94 마스크 착용과 외출 단축을 권장해요."}},
+        {"@type": "Question", "name": "이 데이터는 어디서 오나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "체험 페이지는 OpenMeteo의 무료 공개 API를 사용합니다. 실제 안드로이드 앱은 에어코리아·서울 열린데이터·AQICN·OpenMeteo·기상청 5개 공식 소스를 비교해 가장 안전한 등급을 보여줍니다."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-logo" style="overflow:hidden;background:none;padding:0">
+        <img id="app-logo" src="app_icon_512.png" alt="미세먼지 알리미" style="width:100%;height:100%;display:block;object-fit:cover" />
+      </span>
+      <div><b>미세먼지 알리미</b><small>Android · v1.0.0</small></div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link active" href="index.html">홈</a>
+      <a class="nav-link"   style="background:var(--coral);color:#fff" href="try.html">🌫 체험해보기</a>
+      <a class="nav-link" href="search.html">장소·대기·날씨</a>
+      <a class="nav-link" href="map.html">응급·보건·약국</a>
+      <a class="nav-link" href="extras.html">부가기능</a>
+      <a class="nav-link" href="advice.html">조언</a>
+      <a class="nav-link" href="story.html">만든 이야기</a>
+      <a class="nav-link" href="donors.html">응원해주신 분들</a>
+      <a class="nav-link" href="download.html">다운로드</a>
+    </nav>
+    <a class="btn btn-coral nav-cta" href="download.html">앱 받기</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<aside class="mobile-menu" id="mobileMenu" role="menu" aria-label="모바일 메뉴">
+  <a class="menu-link" href="index.html"><span class="ic">🏠</span>홈<span class="arr">→</span></a>
+  <a class="menu-link cta" href="try.html"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></a>
+  <a class="menu-link" href="search.html"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></a>
+  <a class="menu-link" href="map.html"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></a>
+  <a class="menu-link" href="extras.html"><span class="ic">💊</span>부가기능<span class="arr">→</span></a>
+  <a class="menu-link" href="advice.html"><span class="ic">📒</span>조언<span class="arr">→</span></a>
+  <a class="menu-link" href="story.html"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></a>
+  <a class="menu-link" href="donors.html"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></a>
+  <a class="menu-link" href="download.html"><span class="ic">📲</span>다운로드<span class="arr">→</span></a>
+</aside>
+<main id="advice" class="page active">
+  <section class="block" style="padding-top:32px">
+    <div class="container">
+      <span class="eyebrow">생활 조언 + 일일 퀴즈</span>
+      <h2 class="section-title">앱 안의 모든 가이드,<br/>한 곳에서.</h2>
+      <p class="section-sub">앱 안 '생활 조언' 탭의 35+개 카드를 그대로 옮겼어요. 환경부·질병관리청·식약처·한국영양학회·소아과학회 같은 전문기관 자료부터, 일상에서 바로 쓸 수 있는 건강 정보, 그리고 도라지차·식염수 코 세척 같은 검증된 민간요법·대처법까지.</p>
+
+      <!-- 5등급 단계별 행동요령 -->
+      <h3 style="font-size:24px;letter-spacing:-.02em;margin:32px 0 6px;font-weight:800">📊 미세먼지 5등급 — 단계별 행동요령</h3>
+      <p style="color:var(--ink-2);font-size:14.5px;margin:0 0 0">PM2.5 농도 기준. 등급 색상은 앱과 동일.</p>
+
+      <div class="grade-grid">
+        <div class="grade-card g1">
+          <div class="em">🌟</div>
+          <span class="lvl">아주 좋음</span>
+          <div class="range">PM2.5 0–15㎍/㎥</div>
+          <div class="gd-action">대청소·이불 일광건조<br/>격렬한 야외 운동 OK</div>
+          <details><summary>+ 자세히</summary>
+            <ul>
+              <li>창문 활짝 열고 자연 환기 극대화</li>
+              <li>이불·베개 햇볕에 살균</li>
+              <li>조깅·등산·축구 마음껏</li>
+              <li>실내 화분 잠깐 내놓으면 광합성 활발</li>
+            </ul>
+          </details>
+        </div>
+        <div class="grade-card g2">
+          <div class="em">😊</div>
+          <span class="lvl">좋음</span>
+          <div class="range">PM2.5 16–35㎍/㎥</div>
+          <div class="gd-action">하루 3번 30분 환기<br/>일상적 야외 활동</div>
+          <details><summary>+ 자세히</summary>
+            <ul>
+              <li>유모차 외출 좋은 날씨</li>
+              <li>차량 에어컨 필터 점검</li>
+              <li>빨래 바깥에 널어 햇빛 소독까지</li>
+              <li>가벼운 산책·자전거</li>
+            </ul>
+          </details>
+        </div>
+        <div class="grade-card g3">
+          <div class="em">😐</div>
+          <span class="lvl">보통</span>
+          <div class="range">PM2.5 36–75㎍/㎥</div>
+          <div class="gd-action">민감군 장시간 외출 자제<br/>환기는 짧게</div>
+          <details><summary>+ 자세히</summary>
+            <ul>
+              <li>오전 10시–오후 4시 짧게 환기</li>
+              <li>도로변 조깅·매연 노출 자제</li>
+              <li>호흡기 질환자 마스크 챙기기</li>
+              <li>물 평소보다 자주 섭취</li>
+              <li>인공눈물로 눈 자극 완화</li>
+            </ul>
+          </details>
+        </div>
+        <div class="grade-card g4">
+          <div class="em">🙁</div>
+          <span class="lvl">나쁨</span>
+          <div class="range">PM2.5 76–150㎍/㎥</div>
+          <div class="gd-action">KF94 필수<br/>실내 운동·콘택트 대신 안경</div>
+          <details><summary>+ 자세히</summary>
+            <ul>
+              <li>식약처 인증 KF80↑ 마스크 + 틈새 밀착</li>
+              <li>겉옷은 밖에서 털고, 따로 분리 세탁</li>
+              <li>귀가 즉시 머리 감기·이중 세안</li>
+              <li>물걸레 청소 (진공청소기 X)</li>
+              <li>차량 '내기 순환 모드' 운전</li>
+              <li>비타민C 풍부한 과일·물 섭취</li>
+            </ul>
+          </details>
+        </div>
+        <div class="grade-card g5">
+          <div class="em">😷</div>
+          <span class="lvl">매우나쁨</span>
+          <div class="range">PM2.5 151㎍/㎥+</div>
+          <div class="gd-action">외출 절대 자제<br/>창문 밀폐·청정기 강풍</div>
+          <details><summary>+ 자세히</summary>
+            <ul>
+              <li>야외 일정 전부 미루기</li>
+              <li>KF94+ 마스크, 호흡 곤란 시 즉시 벗기</li>
+              <li>창문 완전 밀폐, 공기청정기 강풍</li>
+              <li>실내 습도 50% 유지</li>
+              <li>가슴 압박감·잦은 기침 시 즉시 병원</li>
+              <li>어린이·어르신·기저질환자 특히 주의</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+
+      <!-- 카테고리 필터 -->
+      <h3 style="font-size:24px;letter-spacing:-.02em;margin:48px 0 6px;font-weight:800">🍀 생활 조언 모음</h3>
+      <p style="color:var(--ink-2);font-size:14.5px;margin:0 0 0">앱 안 꿀팁 35개를 그대로 옮겼어요. 위 버튼으로 카테고리만 골라서 보세요.</p>
+
+      <div class="ad-tabs" id="adTabs">
+        <button class="ad-tab on" data-cat="ALL"><span class="em">📋</span>전체<span class="cnt">35</span></button>
+        <button class="ad-tab" data-cat="EXPERT"><span class="em">🏛️</span>전문기관 정보<span class="cnt">15</span></button>
+        <button class="ad-tab" data-cat="HEALTH"><span class="em">💡</span>건강 정보<span class="cnt">11</span></button>
+        <button class="ad-tab" data-cat="REMEDY"><span class="em">🌿</span>민간요법·대처법<span class="cnt">9</span></button>
+      </div>
+
+      <div class="ad-grid" id="adGrid">
+
+        <!-- ═══════ EXPERT (전문기관) ═══════ -->
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🛡️</span><div class="hdr-text"><h4>고농도 미세먼지 비상저감조치, 내 차는?</h4><div class="src"><span class="badge">환경부</span>전문기관</div></div></div>
+          <p class="summary">배출가스 5등급 차량은 운행이 제한될 수 있어요. 단속 기준과 과태료 정보를 미리 확인하세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>배출가스 5등급 차량은 비상저감조치 시 서울 등 수도권 운행 제한</li>
+            <li>위반 시 과태료 10만원 부과</li>
+            <li>등급은 환경부 자동차 배출가스 등급제 사이트에서 확인</li>
+            <li>저감장치 부착 시 등급 상향 가능, 지자체 보조금 확인</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">☁️</span><div class="hdr-text"><h4>봄철 불청객 황사와 미세먼지, 차이점은?</h4><div class="src"><span class="badge">환경부</span>전문기관</div></div></div>
+          <p class="summary">황사는 자연적인 모래먼지, 미세먼지는 산업활동으로 생긴 화학물질이에요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>황사: 중국·몽골 사막의 자연 발생 모래먼지(입자 크기 큼)</li>
+            <li>미세먼지: 자동차·공장·화력발전의 화학 미세 입자(PM10·PM2.5)</li>
+            <li>황사는 봄철 집중, 미세먼지는 계절 무관</li>
+            <li>PM2.5는 폐포 침투 → 혈관 이동 가능, 더 위험</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">💨</span><div class="hdr-text"><h4>미세먼지 예보, '나쁨'의 진짜 기준은?</h4><div class="src"><span class="badge">환경부</span>전문기관</div></div></div>
+          <p class="summary">PM10과 PM2.5의 차이, 그리고 통합대기환경지수(CAI)가 건강에 미치는 영향을 알아봐요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>PM10(미세먼지): 지름 10μm 이하, 코·기관지에 걸려 자극</li>
+            <li>PM2.5(초미세먼지): 지름 2.5μm 이하, 폐포 침투·혈관 이동</li>
+            <li>CAI: 0–50 좋음 / 51–100 보통 / 101–250 나쁨 / 251– 매우나쁨</li>
+            <li>WHO PM2.5 연평균 권고치 5μg/m³ — 한국 기준 15보다 엄격</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🛡️</span><div class="hdr-text"><h4>미세먼지 계절관리제란?</h4><div class="src"><span class="badge">환경부</span>전문기관</div></div></div>
+          <p class="summary">12월~3월 집중 관리 기간에 석탄발전 감축, 차량 운행 제한 등 강화된 정책이 시행돼요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>매년 12월~3월 '미세먼지 계절관리제' 시행</li>
+            <li>석탄화력발전소 가동 중단·감축, 공사장 비산먼지 관리 강화</li>
+            <li>노후 경유차 운행제한 확대, 공공부문 2부제</li>
+            <li>국민 행동 수칙: 대중교통, 환기 조절, 마스크 생활화</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">☁️</span><div class="hdr-text"><h4>한·중 미세먼지 공동 대응 현황</h4><div class="src"><span class="badge">환경부</span>전문기관</div></div></div>
+          <p class="summary">중국발 미세먼지의 국외 유입 비중과 양국 간 협력 현황을 알아봅니다.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>고농도 시기 국외 유입 비중 60–80%</li>
+            <li>한·중 환경협력센터 통해 대기질 데이터 공유</li>
+            <li>공동 연구 프로젝트 진행 중</li>
+            <li>국내 자체 발생분도 30–40%, 국내 저감 노력 중요</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">💨</span><div class="hdr-text"><h4>실내 공기질 관리, 환기 타이밍이 생명</h4><div class="src"><span class="badge">질병관리청</span>전문기관</div></div></div>
+          <p class="summary">미세먼지가 나빠도 하루 3번 10분씩 맞통풍 환기는 필수! 도로변 새벽 시간대는 피하세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>밀폐된 실내 CO2·라돈·포름알데히드가 미세먼지보다 위험할 수 있음</li>
+            <li>최적 환기: 오전 10시–오후 2시</li>
+            <li>도로변 주택은 출퇴근 시간(7–9, 6–8시) 환기 피하기</li>
+            <li>환기 후 물걸레질로 가라앉은 먼지 즉시 제거</li>
+            <li>공기청정기는 환기 대용 X, 환기 후 가동이 가장 효과적</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🛡️</span><div class="hdr-text"><h4>기저질환자, '보통' 수준에도 방심 금물</h4><div class="src"><span class="badge">질병관리청</span>전문기관</div></div></div>
+          <p class="summary">천식, COPD 환자는 '보통' 단계에서도 야외 활동 시 각별한 주의가 필요해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>천식: PM2.5 보통(16–35)에서도 발작 위험 2배 증가</li>
+            <li>COPD: 미세먼지 노출 시 급성 악화 → 응급실 방문율 상승</li>
+            <li>심혈관 질환: 혈관 염증 유발, 심근경색 위험 증가</li>
+            <li>외출 전 미세먼지 수치 확인 + 약 항상 소지</li>
+            <li>증상 악화 시 '보통'이라도 즉시 실내, 약물 복용</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">💧</span><div class="hdr-text"><h4>외출 후 3분 씻기 룰</h4><div class="src"><span class="badge">질병관리청</span>전문기관</div></div></div>
+          <p class="summary">눈, 코, 입 등 점막에 붙은 미세먼지가 혈관으로 침투하기 전 바로 씻어내세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>귀가 후 3분 이내: 손 → 얼굴 → 코 안쪽 순서</li>
+            <li>코 세척: 식염수 비강 세척이 점막 먼지 제거에 효과적</li>
+            <li>머리카락에도 미세먼지 다량 흡착, 가능하면 머리도 감기</li>
+            <li>겉옷은 현관에서 털고 실내로 가져오지 말기</li>
+            <li>콘택트렌즈 사용자는 즉시 빼고 인공눈물 세척</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🛡️</span><div class="hdr-text"><h4>미세먼지와 임산부 건강</h4><div class="src"><span class="badge">질병관리청</span>전문기관</div></div></div>
+          <p class="summary">임신 중 고농도 미세먼지 노출은 저체중아 출산, 조산 위험을 높일 수 있어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>임신 초기 미세먼지 노출은 태아 발달에 영향</li>
+            <li>PM2.5가 혈관 통해 태반까지 도달 가능 (연구 결과)</li>
+            <li>'나쁨' 이상 외출 최소화, KF94 착용</li>
+            <li>실내 공기청정기 가동, 충분한 수분 섭취</li>
+            <li>정기 산전검진 시 담당의에게 미세먼지 주의사항 확인</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">😷</span><div class="hdr-text"><h4>영유아 마스크 억지 착용, 질식 위험 경고</h4><div class="src"><span class="badge">소아과학회</span>전문기관</div></div></div>
+          <p class="summary">호흡이 불편한 아이에게 KF94를 고집하면 위험할 수 있어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>24개월 미만 영아는 마스크 착용 자체가 질식 위험</li>
+            <li>KF94는 호흡 저항이 높아 소아에게 답답함·산소 부족 유발</li>
+            <li>아이가 거부하면 억지 착용 X, 외출 자체를 줄이기</li>
+            <li>소아용 KF80 마스크 또는 실내 활동 전환</li>
+            <li>입술이 파래지거나 호흡이 가빠지면 즉시 벗기기</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🏫</span><div class="hdr-text"><h4>미세먼지 심한 날, 우리 아이 유치원 체육은?</h4><div class="src"><span class="badge">소아과학회</span>전문기관</div></div></div>
+          <p class="summary">'나쁨' 수준부터는 실외 체육활동을 실내로 전면 대체해야 해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>어린이는 체중 대비 호흡량이 성인보다 높아 더 취약</li>
+            <li>키가 작아 지표면 가까운 고농도 먼지에 더 노출</li>
+            <li>'보통'에서도 장시간 격렬한 실외 활동 줄이기</li>
+            <li>'나쁨' 이상은 실외 활동 전면 금지 → 실내 체육</li>
+            <li>교실 공기청정기 가동, 물 자주 마시기 습관화</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">😷</span><div class="hdr-text"><h4>소아 알레르기 비염과 미세먼지</h4><div class="src"><span class="badge">소아과학회</span>전문기관</div></div></div>
+          <p class="summary">미세먼지는 아이들의 알레르기 비염 증상을 악화시키는 주요 원인이에요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>미세먼지가 코 점막을 자극 → 콧물·재채기·코막힘 심해짐</li>
+            <li>알레르기 비염 있는 아이는 증상 2–3배 악화</li>
+            <li>외출 후 식염수 코 세척이 증상 완화에 도움</li>
+            <li>처방받은 비강 스프레이·항히스타민제 꾸준히</li>
+            <li>침실 공기청정기 + 침구류 자주 세탁</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">🍱</span><div class="hdr-text"><h4>삼겹살이 미세먼지를 씻는다? 최악의 오해!</h4><div class="src"><span class="badge">한국영양학회</span>전문기관</div></div></div>
+          <p class="summary">지방은 오히려 유해 물질 체내 흡수를 도울 수 있어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>삼겹살 기름이 미세먼지를 씻어낸다는 것은 과학적 근거 X</li>
+            <li>고지방 음식은 오히려 중금속 등 유해 물질 흡수 촉진</li>
+            <li>효과적: 해조류(미역·다시마), 배, 미나리, 브로콜리</li>
+            <li>비타민C(딸기·귤·키위) + 비타민E(견과류) 항산화</li>
+            <li>물·녹차 자주 마시기가 가장 효과적</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">💧</span><div class="hdr-text"><h4>하루 8잔의 물, 호흡기 점막을 보호</h4><div class="src"><span class="badge">한국영양학회</span>전문기관</div></div></div>
+          <p class="summary">충분한 수분 섭취는 기관지 점막의 섬모 운동을 활발하게 해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>섬모는 미세먼지를 걸러내는 1차 방어선</li>
+            <li>수분 부족 → 점막 건조 → 섬모 운동 둔화</li>
+            <li>하루 1.5–2L(약 8잔) 꾸준히</li>
+            <li>카페인 음료는 이뇨 작용, 수분 섭취량에서 제외</li>
+            <li>따뜻한 물이 찬 물보다 점막 보호에 효과적</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="EXPERT">
+          <div class="hdr"><span class="ic">😷</span><div class="hdr-text"><h4>KF 마스크, 숫자만 높다고 능사가 아닙니다</h4><div class="src"><span class="badge">식약처</span>전문기관</div></div></div>
+          <p class="summary">얼굴에 밀착되지 않으면 효과가 '0'입니다.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>KF80: 평균 0.6μm 입자 80% 차단, 일상생활용</li>
+            <li>KF94: 평균 0.4μm 입자 94% 차단, '나쁨' 이상 권장</li>
+            <li>KF99: 99% 차단, 호흡 저항 높아 일상 부적합</li>
+            <li>코 지지대(철사) 꼭 눌러 밀착, 틈새 있으면 효과 급감</li>
+            <li>접거나 세탁하면 정전기 필터 파괴 → 성능 X</li>
+            <li>1회용은 반드시 1회만</li>
+          </ul></details>
+        </article>
+
+        <!-- ═══════ HEALTH (건강 정보) ═══════ -->
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">😷</span><div class="hdr-text"><h4>마스크 선택 꿀팁</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">KF94가 미세먼지를 94% 걸러줘요. 일반 면마스크는 차단 효과가 거의 없어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>KF94는 0.4μm 94% 차단, KF80은 0.6μm 80% 차단</li>
+            <li>면마스크·패션마스크는 미세먼지 차단 거의 없음</li>
+            <li>코 부분 철사를 꼭 눌러 밀착, 틈새 = 효과 급감</li>
+            <li>마스크 쓴 상태에서 숨이 차면 무리 X</li>
+            <li>재사용 마스크는 성능 저하, 1회 사용 원칙</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">💧</span><div class="hdr-text"><h4>물 많이 마시기</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">미세먼지가 나쁜 날은 물을 평소보다 2잔 더 마셔주세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>기관지 점막을 촉촉하게 → 미세먼지 배출 능력 상승</li>
+            <li>하루 권장: 1.5–2L (약 8잔)</li>
+            <li>따뜻한 물이 찬물보다 기관지 보호에 효과적</li>
+            <li>커피·술은 이뇨 작용, 수분 섭취량에서 제외</li>
+            <li>목 마르기 전에 조금씩 자주</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🥬</span><div class="hdr-text"><h4>미세먼지에 좋은 음식</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">배·미나리·브로콜리·마늘이 기관지에 좋아요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>배: 루테올린이 기관지 염증 완화·가래 감소</li>
+            <li>미나리: 해독 작용, 체내 중금속 배출</li>
+            <li>브로콜리: 설포라판이 폐 세포 보호</li>
+            <li>해조류(미역·다시마): 알긴산이 중금속 흡착·배출</li>
+            <li>비타민C 풍부한 딸기·귤은 항산화</li>
+            <li>도라지: 사포닌이 기관지 점막 보호·기침 완화</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🪟</span><div class="hdr-text"><h4>환기의 과학</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">미세먼지가 나빠도 하루 3번 10분씩 맞통풍 환기는 필수!</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>밀폐된 실내 CO2·라돈이 미세먼지보다 더 위험할 수 있음</li>
+            <li>최적 환기: 오전 10시–오후 2시</li>
+            <li>환기 후 물걸레질로 바닥 먼지 제거</li>
+            <li>요리할 때 환풍기 필수 (실내 미세먼지 폭증 방지)</li>
+            <li>비 온 직후가 환기 좋은 타이밍</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🏠</span><div class="hdr-text"><h4>실내 공기 관리</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">공기청정기는 방 크기에 맞는 걸 쓰세요. 굽거나 튀기는 요리는 실내 미세먼지를 폭증시켜요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>공기청정기는 방 면적 1.5배↑ 용량</li>
+            <li>굽기·튀김 시 실내 PM2.5가 외부 '매우나쁨' 수준까지</li>
+            <li>삶기·찌기가 실내 공기에 훨씬 좋음</li>
+            <li>촛불·향초·인센스도 미세먼지 발생</li>
+            <li>실내 식물(산세베리아·스파티필럼) 도움</li>
+            <li>진공청소기보다 물걸레가 재비산 방지</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🛡️</span><div class="hdr-text"><h4>외출 후 3분 룰</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">귀가하면 바로 손·얼굴·코 안을 씻으세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>귀가 3분 이내: 손 → 얼굴 → 코 안쪽 순서</li>
+            <li>겉옷은 밖에서 먼지 털고, 현관에 걸기</li>
+            <li>콘택트렌즈 대신 안경 → 각막 보호</li>
+            <li>머리카락에도 미세먼지 대량 흡착, 머리도 감기</li>
+            <li>코 세척: 식염수 비강 세척기로 코 안쪽 먼지 제거</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🎒</span><div class="hdr-text"><h4>어린이 특별 주의</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">어린이는 어른보다 호흡이 빠르고 키가 작아 미세먼지를 더 많이 흡입해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>어린이 체중 대비 호흡량은 성인의 약 2배</li>
+            <li>키가 작아 바닥 가까운 고농도 먼지에 노출</li>
+            <li>'나쁨' 이상이면 바깥 활동 줄이기</li>
+            <li>24개월 미만 영유아 KF94 억지 착용 시 질식 위험!</li>
+            <li>기침·재채기 심하면 즉시 실내로</li>
+            <li>모래놀이는 미세먼지 나쁜 날 피하기</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🌪️</span><div class="hdr-text"><h4>황사 vs 미세먼지</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">황사는 자연 발생 모래먼지, 미세먼지는 산업·교통에서 나온 화학 입자예요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>황사: 중·몽 사막 모래먼지, 큰 입자, 눈·코 자극</li>
+            <li>미세먼지: 산업·교통 화학 입자, 작은 입자, 폐·혈관 침투</li>
+            <li>황사는 봄철 집중, 미세먼지는 계절 무관</li>
+            <li>황사는 알칼리성 → 세안으로 쉽게 제거</li>
+            <li>미세먼지는 산성 → 더 위험</li>
+            <li>둘 다 발생 시 외출 자제</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">✨</span><div class="hdr-text"><h4>미세먼지와 피부 건강</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">미세먼지는 모공에 침투해 피부 트러블, 아토피 악화를 유발할 수 있어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>PM2.5는 모공보다 작아 피부 깊숙이 침투</li>
+            <li>노출 후 이중 세안 권장</li>
+            <li>아토피 환자 증상 악화 가능</li>
+            <li>외출 시 선크림·메이크업이 보호막 역할</li>
+            <li>저자극 클렌저·보습제 + 미스트 수시</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">👁️</span><div class="hdr-text"><h4>미세먼지와 눈 건강</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">미세먼지가 심한 날은 콘택트렌즈보다 안경을 착용하세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>콘택트렌즈 표면 미세먼지 흡착 → 각막염 위험</li>
+            <li>'보통' 이상이면 안경 권장</li>
+            <li>눈 비비기 절대 금지! 각막 손상 위험</li>
+            <li>방부제 없는 일회용 인공눈물 수시</li>
+            <li>외출 후 깨끗한 물로 눈 주위 세척</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="HEALTH">
+          <div class="hdr"><span class="ic">🏃</span><div class="hdr-text"><h4>실내 운동 대안</h4><div class="src"><span class="badge" style="background:#FFE7B2">건강 상식</span></div></div></div>
+          <p class="summary">미세먼지가 나쁜 날에도 운동을 포기하지 마세요. 실내 대안이 있어요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>실내 스트레칭·요가는 호흡기 부담 X</li>
+            <li>계단 오르내리기·줄넘기로 실내 유산소</li>
+            <li>홈트 앱이나 영상으로 따라하기</li>
+            <li>'좋음'으로 돌아오면 야외 운동 재개</li>
+            <li>실내 수영장·체육관도 좋은 대안</li>
+          </ul></details>
+        </article>
+
+        <!-- ═══════ REMEDY (민간요법·대처법) ═══════ -->
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🌿</span><div class="hdr-text"><h4>도라지차 — 기관지 보호 민간요법</h4><div class="src"><span class="badge" style="background:#E8F5DA">민간요법</span></div></div></div>
+          <p class="summary">도라지의 사포닌 성분이 기관지 점막을 보호하고 가래를 삭여줘요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>도라지 깨끗이 씻고 말려서 30분 이상 끓이기</li>
+            <li>꿀·대추 함께 넣으면 맛·효능 UP</li>
+            <li>사포닌이 기관지 점막 코팅 → 자극 감소</li>
+            <li>하루 1–2잔 따뜻하게 → 기침 완화</li>
+            <li>시중 배도라지청도 간편하게</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🍐</span><div class="hdr-text"><h4>배즙·배숙 — 기침 완화 전통 요법</h4><div class="src"><span class="badge" style="background:#E8F5DA">민간요법</span></div></div></div>
+          <p class="summary">배의 루테올린 성분이 기관지 염증을 가라앉혀요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>배 통째로 속 파내고 꿀·생강 넣어 찌는 '배숙'</li>
+            <li>루테올린이 기관지 염증 완화·가래 감소</li>
+            <li>즙으로 갈아 마셔도 OK, 하루 1잔</li>
+            <li>기침 심할 때 따뜻하게 → 목 편안</li>
+            <li>어린이에게도 안전</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🫚</span><div class="hdr-text"><h4>생강차 — 면역력 강화</h4><div class="src"><span class="badge" style="background:#E8F5DA">민간요법</span></div></div></div>
+          <p class="summary">생강의 진저롤 성분이 면역력을 높이고 기관지를 따뜻하게 보호해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>얇게 썬 생강을 뜨거운 물에 우려내기, 꿀 추가</li>
+            <li>진저롤이 항염·항산화</li>
+            <li>체온 ↑ → 면역 세포 활동 활발</li>
+            <li>목감기 초기 하루 2–3잔</li>
+            <li>위장 약한 분은 공복 섭취 X</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">💧</span><div class="hdr-text"><h4>식염수 코 세척 — 비강 청소법</h4><div class="src"><span class="badge" style="background:#E8F5DA">대처법</span></div></div></div>
+          <p class="summary">식염수로 코를 세척하면 미세먼지와 알레르기 물질을 효과적으로 제거해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>0.9% 생리식염수를 36–37도로 데워서</li>
+            <li>네티팟에 넣고 한쪽 콧구멍으로 → 반대쪽으로 나옴</li>
+            <li>고개 살짝 숙이고 '아~' 소리 내면 목으로 안 넘어감</li>
+            <li>하루 1–2회, 외출 후 → 비염 증상 완화</li>
+            <li>소아는 스프레이형 코 세척기 사용</li>
+            <li>세척 후 코를 살살 풀어 남은 물 제거</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🍯</span><div class="hdr-text"><h4>꿀물·유자차 — 목 보호</h4><div class="src"><span class="badge" style="background:#E8F5DA">민간요법</span></div></div></div>
+          <p class="summary">꿀의 항균 작용과 유자의 비타민C가 목 점막을 보호해줘요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>따뜻한 물 + 꿀 1스푼 → 목 점막 코팅</li>
+            <li>유자차의 비타민C로 항산화 효과</li>
+            <li>목 건조·따끔할 때 수시로</li>
+            <li>꿀은 1세 미만 영아에게 보툴리누스 위험, 금지!</li>
+            <li>레몬 + 꿀 + 생강 = 최강 조합</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🌊</span><div class="hdr-text"><h4>미역국·다시마 물 — 중금속 배출</h4><div class="src"><span class="badge" style="background:#E8F5DA">민간요법</span></div></div></div>
+          <p class="summary">해조류의 알긴산 성분이 체내 중금속과 미세먼지 유해물질을 흡착해 배출해요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>알긴산이 중금속(납·카드뮴) 흡착 → 대변 배출</li>
+            <li>미세먼지 나쁜 날 미역국 → 해독</li>
+            <li>다시마 우린 물 하루 1잔</li>
+            <li>꾸준히 섭취 시 체내 유해물질 축적 감소</li>
+            <li>요오드 과다 주의: 갑상선 질환자는 담당의와 상의</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">♨️</span><div class="hdr-text"><h4>증기 흡입법 — 기관지 수분 보충</h4><div class="src"><span class="badge" style="background:#E8F5DA">대처법</span></div></div></div>
+          <p class="summary">따뜻한 수증기를 들이마시면 기관지 점막이 촉촉해져 미세먼지 배출이 좋아져요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>대야에 뜨거운 물 + 수건으로 머리 덮어 증기 흡입</li>
+            <li>유칼립투스·페퍼민트 오일 1–2방울 → 효과 UP</li>
+            <li>5–10분 천천히 깊게 호흡</li>
+            <li>하루 1–2회, 특히 외출 후</li>
+            <li>화상 주의 — 아이에게는 위험</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">💧</span><div class="hdr-text"><h4>실내 습도 관리법</h4><div class="src"><span class="badge" style="background:#E8F5DA">대처법</span></div></div></div>
+          <p class="summary">실내 습도를 40~60%로 유지하면 미세먼지가 수분에 흡착돼 공기 중 농도가 낮아져요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>가습기 또는 젖은 수건 활용</li>
+            <li>수분이 미세먼지 흡착 → 바닥으로 가라앉힘</li>
+            <li>너무 높으면(70%↑) 곰팡이 위험</li>
+            <li>습도계로 40–60% 유지</li>
+            <li>실내 빨래 건조 → 자연 가습 효과</li>
+            <li>가습기 물통은 매일 세척</li>
+          </ul></details>
+        </article>
+
+        <article class="ad-card" data-cat="REMEDY">
+          <div class="hdr"><span class="ic">🐾</span><div class="hdr-text"><h4>반려동물 미세먼지 대처법</h4><div class="src"><span class="badge" style="background:#E8F5DA">대처법</span></div></div></div>
+          <p class="summary">강아지·고양이도 미세먼지에 취약해요. 산책과 실내 관리 방법을 알아두세요.</p>
+          <details><summary>자세히 보기</summary><ul>
+            <li>'나쁨' 이상이면 산책 줄이거나 취소</li>
+            <li>산책 후 발바닥·몸을 물티슈로 닦기</li>
+            <li>지면에 가까워 더 높은 농도에 노출</li>
+            <li>실내에서 장난감·노즈워크로 활동량 보충</li>
+            <li>호흡 빠르거나 기침 → 동물병원</li>
+            <li>공기청정기 근처에 잠자리</li>
+          </ul></details>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 일일 퀴즈 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <div style="background:#FFE5D6;border:1.5px solid var(--ink);border-radius:32px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;box-shadow:var(--shadow-soft)">
+        <div>
+          <span class="eyebrow" style="background:#fff;color:var(--coral);border-color:#fff">🎯 일일 퀴즈</span>
+          <h2 class="section-title" style="margin-top:14px">매일 한 문제,<br/>레벨업까지.</h2>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75;margin:0">앱을 켤 때마다 미세먼지 관련 새 퀴즈가 나와요. 맞히면 경험치가 쌓이고, 일정 이상이면 레벨이 올라가요. SEED → 새싹 → 떡잎 → 꽃 → 나무까지.</p>
+          <ul style="margin-top:14px;padding-left:18px;font-size:14.5px;color:var(--ink-2);line-height:1.85">
+            <li>같은 날 답한 퀴즈는 중복 득점 차단</li>
+            <li>정답 시 자동으로 레벨 재조회</li>
+            <li>UserLevel 진급 시 화면 효과</li>
+          </ul>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:24px">
+          <div style="font-size:11px;font-weight:800;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase">QUIZ #142 · 나의 레벨 🌱 새싹</div>
+          <h3 style="font-size:18px;letter-spacing:-.01em;margin:10px 0 14px;font-weight:800">PM2.5 보통(31–80㎍/㎥) 단계에서<br/>가장 적절한 행동은?</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="padding:12px 16px;background:var(--cream);border:1.5px solid var(--ink);border-radius:14px;font-size:14px;font-weight:700">A. 평소처럼 야외 운동 마음껏</div>
+            <div style="padding:12px 16px;background:var(--leaf);color:#fff;border:1.5px solid var(--ink);border-radius:14px;font-size:14px;font-weight:800">B. 민감군은 장시간 외출 자제, 환기는 짧게 ✓</div>
+            <div style="padding:12px 16px;background:var(--cream);border:1.5px solid var(--ink);border-radius:14px;font-size:14px;font-weight:700">C. 모든 외출 금지</div>
+            <div style="padding:12px 16px;background:var(--cream);border:1.5px solid var(--ink);border-radius:14px;font-size:14px;font-weight:700">D. 마스크 두 장 겹쳐 착용</div>
+          </div>
+          <div style="margin-top:14px;padding:12px;background:#E8F5DA;border:1.5px solid var(--ink);border-radius:14px;font-size:13px;font-weight:700;color:var(--ink)">🎉 정답이에요! +10 경험치 — 다음 레벨까지 35 / 100</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+  <div class="dm-card">
+    <div class="dm-em">☕</div>
+    <h3 id="dmTitle">후원해주셔서<br/><b>정말 감사합니다!</b></h3>
+    <p>후원자 명단에 <b>보내시는 분 이름</b>을 올려도 될까요?<br/>표시할 이름은 닉네임으로 바꾸실 수 있어요.</p>
+    <div class="dm-btns">
+      <button class="dm-btn dm-yes" id="dmYes" type="button">✅ 예 — 명단에 올려주세요</button>
+      <button class="dm-btn dm-no" id="dmNo" type="button">아니요 — 익명으로 후원할게요</button>
+    </div>
+    <div class="dm-note">'예'를 선택하시면 짧은 폼이 새 탭에 열려요<br/>(이름 · 이메일 · 송금일 · 한 마디 응원)</div>
+  </div>
+<footer>
+  <div class="container foot-grid">
+    <div>© 2026 신재우 · 미세먼지 알리미 · Made with care 💛</div>
+    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

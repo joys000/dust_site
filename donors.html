@@ -10,8 +10,8 @@
 
 <!-- Open Graph / 메신저·SNS 공유 -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="미세먼지 알리미 — 한눈에 보이는 우리 동네 미세먼지" />
-<meta property="og:description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 신재우 1인 개발 안드로이드 앱." />
+<meta property="og:title" content="응원해주신 분들 — 미세먼지 알리미" />
+<meta property="og:description" content="따뜻한 응원으로 앱이 한 걸음씩 더 단단해져요." />
 <meta property="og:image" content="app_icon_512.png" />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:site_name" content="미세먼지 알리미" />
@@ -22,8 +22,8 @@
 <meta name="twitter:description" content="PM2.5·PM10·자외선·온도까지 무료로. 안드로이드 앱 2026.05.15 출시." />
 <meta name="twitter:image" content="app_icon_512.png" />
 
-<title>미세먼지 알리미 — 한눈에 보이는 우리 동네 미세먼지</title>
-<meta name="description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 신재우 1인 개발 안드로이드 앱." />
+<title>응원해주신 분들 — 미세먼지 알리미</title>
+<meta name="description" content="따뜻한 응원으로 앱이 한 걸음씩 더 단단해져요." />
 <!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
 <!-- <link rel="canonical" href="https://your-domain.com/" /> -->
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -113,7 +113,33 @@
   <a class="menu-link" href="donors.html"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></a>
   <a class="menu-link" href="download.html"><span class="ic">📲</span>다운로드<span class="arr">→</span></a>
 </aside>
-<main id="home" class="page active"></main>
+<main id="donors" class="page active">
+  <section class="donors-hero">
+    <div class="container">
+      <span class="eyebrow">☕ 응원해주신 분들</span>
+      <h1>덕분에 앱이<br/><em>한 걸음씩 더 단단해져요.</em></h1>
+      <p class="lead">아래 분들의 따뜻한 응원 덕분에 새 기능을 추가하고 앱을 더 좋게 만들 수 있어요. 정말 감사합니다.</p>
+      <div class="donors-stats">
+        <span class="pill">총 <b id="dnTotal">0</b>분이 응원해주셨어요</span>
+        <a class="pill" style="text-decoration:none;color:inherit" href="download.html">☕ 나도 응원하기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:24px">
+    <div class="container">
+      <div id="donorsList"></div>
+
+      <!-- 빈 상태 -->
+      <div class="donors-empty" id="donorsEmpty" style="display:none">
+        <span class="em">☕</span>
+        <h3>첫 후원자가 되어주세요</h3>
+        <p>아직 명단이 비어 있어요. 누구든 첫 후원으로 시작해주시면<br/>이름과 한 마디를 여기에 가장 먼저 띄워드릴게요.</p>
+        <a class="btn btn-coral btn-lg" href="download.html">☕ 후원 채널 보기 →</a>
+      </div>
+    </div>
+  </section>
+</main>
 <div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
   <div class="dm-card">
     <div class="dm-em">☕</div>

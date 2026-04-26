@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="keywords" content="미세먼지 농도, 미세먼지 측정, 미세먼지 농도 측정, PM2.5, PM10, 우리 동네 미세먼지, 현재 위치 미세먼지, 미세먼지 알림 앱, 자외선 지수, 미세먼지 알리미, 안드로이드 미세먼지, 어르신 미세먼지 앱, 미세먼지 위젯, 호흡기 약 알림, 응급실 약국 찾기, 미세먼지 일기, OpenMeteo" />
+<meta name="author" content="미세먼지 알리미" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#FF6B47" />
+
+<!-- Open Graph / 메신저·SNS 공유 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="만든 이야기 — 미세먼지 알리미" />
+<meta property="og:description" content="부모님과 할머니·할아버지가 편하게 쓸 수 있게 만들었어요. 1인 개발 첫 앱." />
+<meta property="og:image" content="app_icon_512.png" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:site_name" content="미세먼지 알리미" />
+
+<!-- 트위터 카드 -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="미세먼지 알리미 — 우리 동네 미세먼지 1초 측정" />
+<meta name="twitter:description" content="PM2.5·PM10·자외선·온도까지 무료로. 안드로이드 앱 2026.05.15 출시." />
+<meta name="twitter:image" content="app_icon_512.png" />
+
+<title>만든 이야기 — 미세먼지 알리미</title>
+<meta name="description" content="부모님과 할머니·할아버지가 편하게 쓸 수 있게 만들었어요. 1인 개발 첫 앱." />
+<!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
+<!-- <link rel="canonical" href="https://your-domain.com/" /> -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="icon" href="app_icon_512.png" type="image/png" />
+<link rel="apple-touch-icon" href="app_icon_512.png" />
+
+<!-- Schema.org 구조화 데이터 — 검색 결과 풍부 표시 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "name": "미세먼지 알리미",
+      "operatingSystem": "Android 8.0+",
+      "applicationCategory": "HealthApplication",
+      "description": "PM2.5·PM10·자외선·바람·온도를 한 화면에. 응급실·약국·복약 리마인더·미세먼지 일기까지 통합한 모든 연령용 미세먼지 앱.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+      "datePublished": "2026-05-15",
+      "inLanguage": "ko-KR",
+      "image": "app_icon_512.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "미세먼지 알리미",
+      "inLanguage": "ko-KR",
+      "description": "현재 위치 미세먼지 농도 무료 측정. PM2.5·PM10 실시간 확인."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "미세먼지 농도는 어떻게 측정하나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "이 페이지에서 위치 권한을 허용하시면 1초 안에 우리 동네 PM2.5와 PM10 농도를 확인할 수 있어요. 데이터는 OpenMeteo Air Quality API를 통해 실시간으로 가져옵니다."}},
+        {"@type": "Question", "name": "PM2.5와 PM10의 차이는 무엇인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM10은 지름 10μm 이하의 미세먼지로 코·기관지에 걸려 자극을 유발해요. PM2.5는 지름 2.5μm 이하의 초미세먼지로 폐포까지 침투해 혈관으로 이동할 수 있어 더 위험합니다."}},
+        {"@type": "Question", "name": "미세먼지 '나쁨'은 몇 ㎍/㎥부터인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM2.5 기준 76㎍/㎥ 이상부터 '나쁨', 151㎍/㎥ 이상은 '매우 나쁨'입니다. '나쁨' 단계에서는 KF94 마스크 착용과 외출 단축을 권장해요."}},
+        {"@type": "Question", "name": "이 데이터는 어디서 오나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "체험 페이지는 OpenMeteo의 무료 공개 API를 사용합니다. 실제 안드로이드 앱은 에어코리아·서울 열린데이터·AQICN·OpenMeteo·기상청 5개 공식 소스를 비교해 가장 안전한 등급을 보여줍니다."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-logo" style="overflow:hidden;background:none;padding:0">
+        <img id="app-logo" src="app_icon_512.png" alt="미세먼지 알리미" style="width:100%;height:100%;display:block;object-fit:cover" />
+      </span>
+      <div><b>미세먼지 알리미</b><small>Android · v1.0.0</small></div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link active" href="index.html">홈</a>
+      <a class="nav-link"   style="background:var(--coral);color:#fff" href="try.html">🌫 체험해보기</a>
+      <a class="nav-link" href="search.html">장소·대기·날씨</a>
+      <a class="nav-link" href="map.html">응급·보건·약국</a>
+      <a class="nav-link" href="extras.html">부가기능</a>
+      <a class="nav-link" href="advice.html">조언</a>
+      <a class="nav-link" href="story.html">만든 이야기</a>
+      <a class="nav-link" href="donors.html">응원해주신 분들</a>
+      <a class="nav-link" href="download.html">다운로드</a>
+    </nav>
+    <a class="btn btn-coral nav-cta" href="download.html">앱 받기</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<aside class="mobile-menu" id="mobileMenu" role="menu" aria-label="모바일 메뉴">
+  <a class="menu-link" href="index.html"><span class="ic">🏠</span>홈<span class="arr">→</span></a>
+  <a class="menu-link cta" href="try.html"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></a>
+  <a class="menu-link" href="search.html"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></a>
+  <a class="menu-link" href="map.html"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></a>
+  <a class="menu-link" href="extras.html"><span class="ic">💊</span>부가기능<span class="arr">→</span></a>
+  <a class="menu-link" href="advice.html"><span class="ic">📒</span>조언<span class="arr">→</span></a>
+  <a class="menu-link" href="story.html"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></a>
+  <a class="menu-link" href="donors.html"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></a>
+  <a class="menu-link" href="download.html"><span class="ic">📲</span>다운로드<span class="arr">→</span></a>
+</aside>
+<main id="story" class="page active">
+  <section class="story-hero">
+    <div class="container">
+      <span class="eyebrow">만든 이야기 · 진짜 시작은 가족이었어요</span>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:24px">
+    <div class="container story-grid">
+      <div>
+        <h2 class="section-title">우리 부모님과<br/>할머니, 할아버지가<br/><em>편하게 쓸 수 있게.</em></h2>
+        <p style="color:var(--ink-2);font-size:17px;line-height:1.8;max-width:540px">어느 날, 부모님이 휴대폰을 들고 미세먼지 사이트에 일일이 들어가서 검색하고 계셨어요. <b>"언제 다시 좋아질까?"</b> 하시면서요.<br/><br/>알림이라도 자동으로 와줬으면 좋겠다는 말씀에서 시작했고, 그러다 보니 <b>할머니·할아버지</b>가 떠올랐어요. 다른 앱들은 어르신에게 너무 불친절했거든요.<br/><br/>그래서 결심했어요 — <b>"모든 연령이 다 편하게 쓰면서, 정말 중요한 기능들만 넣자."</b></p>
+
+        <div class="hero-cta">
+          <a class="btn btn-coral btn-lg" href="extras.html">기능 자세히 →</a>
+          <a class="btn btn-ghost btn-lg" href="download.html">앱 받기</a>
+        </div>
+      </div>
+
+      <div style="position:relative;min-height:420px;display:grid;place-items:center">
+        <span class="blob b1" style="width:300px;height:300px;background:#FFD7BD;top:20px;left:20px;border-radius:50%;position:absolute;filter:blur(2px)"></span>
+        <span class="blob b3" style="width:180px;height:180px;background:#A8E6B5;bottom:30px;right:20px;border-radius:50%;position:absolute;filter:blur(2px)"></span>
+        <div class="polaroid">
+          <span class="tape"></span>
+          <div class="photo">
+            <svg viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice" aria-label="앱 마스코트와 알림 일러스트">
+              <defs>
+                <linearGradient id="skyV2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#CDEEFB"/>
+                  <stop offset="100%" stop-color="#7BC8F0"/>
+                </linearGradient>
+                <radialGradient id="sunV2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FFE7B2"/>
+                  <stop offset="100%" stop-color="#FFB627" stop-opacity=".4"/>
+                </radialGradient>
+              </defs>
+              <!-- 하늘 배경 -->
+              <rect width="320" height="240" fill="url(#skyV2)"/>
+
+              <!-- 작은 별/반짝임 -->
+              <g fill="#fff" opacity=".9">
+                <path d="M40,52 L43,58 L49,60 L43,62 L40,68 L37,62 L31,60 L37,58 Z"/>
+                <path d="M268,40 L270,44 L274,45 L270,46 L268,50 L266,46 L262,45 L266,44 Z"/>
+                <path d="M52,150 L54,154 L58,155 L54,156 L52,160 L50,156 L46,155 L50,154 Z" opacity=".6"/>
+              </g>
+
+              <!-- 작은 구름들 (배경) -->
+              <g fill="#fff" opacity=".75">
+                <ellipse cx="55" cy="100" rx="28" ry="11"/>
+                <ellipse cx="48" cy="92" rx="14" ry="10"/>
+                <ellipse cx="62" cy="92" rx="14" ry="10"/>
+                <ellipse cx="262" cy="100" rx="24" ry="10"/>
+                <ellipse cx="270" cy="92" rx="12" ry="9"/>
+              </g>
+
+              <!-- 햇살 -->
+              <circle cx="280" cy="48" r="36" fill="url(#sunV2)"/>
+
+              <!-- 큰 구름 마스코트 (앱 아이콘 스타일) -->
+              <g transform="translate(160,140)">
+                <!-- 그림자 -->
+                <ellipse cx="0" cy="62" rx="62" ry="8" fill="#1F1A17" opacity=".15"/>
+                <!-- 구름 본체 -->
+                <g>
+                  <ellipse cx="-30" cy="0" rx="28" ry="26" fill="#fff" stroke="#1F1A17" stroke-width="3"/>
+                  <ellipse cx="0" cy="-12" rx="34" ry="30" fill="#fff" stroke="#1F1A17" stroke-width="3"/>
+                  <ellipse cx="32" cy="0" rx="28" ry="26" fill="#fff" stroke="#1F1A17" stroke-width="3"/>
+                  <rect x="-58" y="0" width="116" height="28" rx="14" fill="#fff" stroke="#1F1A17" stroke-width="3"/>
+                </g>
+                <!-- 볼터치 -->
+                <ellipse cx="-22" cy="6" rx="7" ry="5" fill="#FFB7A0" opacity=".75"/>
+                <ellipse cx="22" cy="6" rx="7" ry="5" fill="#FFB7A0" opacity=".75"/>
+                <!-- 눈 (감은 미소) -->
+                <path d="M-16,-6 Q-12,2 -8,-6" fill="none" stroke="#1F1A17" stroke-width="3" stroke-linecap="round"/>
+                <path d="M8,-6 Q12,2 16,-6" fill="none" stroke="#1F1A17" stroke-width="3" stroke-linecap="round"/>
+                <!-- 입 -->
+                <path d="M-8,8 Q0,16 8,8" fill="none" stroke="#1F1A17" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+
+              <!-- 알림 종 배지 (오른쪽 위) -->
+              <g transform="translate(214,118)">
+                <circle cx="0" cy="0" r="20" fill="#FFB627" stroke="#1F1A17" stroke-width="3"/>
+                <path d="M-7,-5 Q-7,-12 0,-12 Q7,-12 7,-5 L7,2 L9,5 L-9,5 L-7,2 Z" fill="#fff" stroke="#1F1A17" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="0" cy="8" r="2" fill="#1F1A17"/>
+                <!-- 진동 라인 -->
+                <path d="M16,-12 Q22,-12 22,-6" fill="none" stroke="#FFB627" stroke-width="3" stroke-linecap="round"/>
+                <path d="M-16,-12 Q-22,-12 -22,-6" fill="none" stroke="#FFB627" stroke-width="3" stroke-linecap="round"/>
+              </g>
+
+              <!-- 작은 하트 -->
+              <text x="50" y="200" font-size="22">💛</text>
+
+              <!-- frame -->
+              <rect x="6" y="6" width="308" height="228" fill="none" stroke="#1F1A17" stroke-width="6" rx="4"/>
+            </svg>
+          </div>
+          <div class="caption">"엄마, 검색 안 해도 알림이 와요."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 어디서 시작했나 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">📌 어떻게 시작됐나요</span>
+      <h2 class="section-title">평범한 일상이<br/>설계의 시작이었어요.</h2>
+      <p class="section-sub">화려한 기능보다, 가족이 매일 마주하는 작은 불편 하나하나를 풀어가는 게 우선이었어요.</p>
+
+      <div class="prob-grid">
+        <div class="prob">
+          <div class="quote">"</div>
+          <h4>부모님이 매일 검색하셨어요</h4>
+          <p>미세먼지 사이트에 들어가서 일일이 확인하시는 모습을 보고, "알림이라도 자동으로 오면 좋겠다"는 한 마디에서 시작됐어요.</p>
+        </div>
+        <div class="prob">
+          <div class="quote">"</div>
+          <h4>다른 앱은 어르신에게 불친절</h4>
+          <p>할머니·할아버지를 떠올리니, 작은 글씨, 광고, 복잡한 화면 — 휴대폰에 익숙하지 않은 분들에겐 너무 어려웠어요.</p>
+        </div>
+        <div class="prob">
+          <div class="quote">"</div>
+          <h4>걷다가 갑자기 몸이 안 좋을 때</h4>
+          <p>지도 앱을 따로 켜고 검색하지 않아도, 바로 가까운 응급실·약국·119가 한 화면에 — 그게 진짜 필요한 순간이었어요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 그래서 이렇게 만들었어요 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">🛠️ 그래서 이렇게 만들었어요</span>
+      <h2 class="section-title">기능마다,<br/>이유가 있어요.</h2>
+      <p class="section-sub">"있으면 좋은 것"보다 "꼭 필요한 것"을 골랐어요. 모든 기능 뒤에 부모님과 할머니·할아버지의 일상이 있었어요.</p>
+
+      <div class="timeline">
+        <div class="t-item coral">
+          <div class="marker">🔔</div>
+          <div class="t-card">
+            <div class="row1"><b>① 미세먼지 알림 — 굳이 검색하지 않아도</b><span class="stamp">시작점</span></div>
+            <p>부모님이 매일 검색하시던 그 일을 자동화. 등록한 동네의 공기가 나빠지면 알아서 알림이 가요. 한 마디 카피("지금 환기 피하세요")로 어르신도 한눈에 이해할 수 있게.</p>
+            <div class="chips"><span class="chip">PUSH</span><span class="chip">지오펜스</span><span class="chip">위젯 3종</span></div>
+          </div>
+        </div>
+        <div class="t-item leaf">
+          <div class="marker">🚑</div>
+          <div class="t-card">
+            <div class="row1"><b>② 가까운 병원·약국 — 산책 중 갑자기 몸이</b><span class="stamp">위급한 순간을 위해</span></div>
+            <p>걷거나 놀다가 갑자기 컨디션이 나빠질 때, 지도 앱을 따로 켜서 일일이 검색할 필요가 없도록. 앱을 열면 바로 응급실·보건소·약국이 지도와 영업시간으로 한 화면에. 국립중앙의료원 데이터.</p>
+            <div class="chips"><span class="chip">네이버 지도</span><span class="chip">국립중앙의료원</span><span class="chip">영업시간</span></div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="marker">🚨</div>
+          <div class="t-card">
+            <div class="row1"><b>③ 119 슬라이드콜 — 어르신을 위한 안전 장치</b><span class="stamp">위급 시 한 번에</span></div>
+            <p>위급한 상황에서 슬라이드 한 번이면 119로 바로 연결되고, 자동으로 스피커폰까지 켜져요. 어르신이 손이 떨려도, 통화 버튼을 못 찾아도, 한 동작으로 닿을 수 있게. 오남용 방지를 위한 법적 안내도 같이.</p>
+            <div class="chips"><span class="chip">슬라이드 호출</span><span class="chip">스피커 자동</span><span class="chip">오남용 안내</span></div>
+          </div>
+        </div>
+        <div class="t-item sky">
+          <div class="marker">💊</div>
+          <div class="t-card">
+            <div class="row1"><b>④ 복약 리마인더 — 칭찬으로 거부감을 줄였어요</b><span class="stamp">매일을 위한 응원</span></div>
+            <p>약을 까먹지 않게 알림이 가고, 먹은 걸 체크하면 기록이 쌓이고, 다음 시간이 되면 다시 알려줘요. <b>"오늘도 잘 챙겨드셨어요!"</b> 같은 한 마디로 약에 대한 거부감을 줄이려 했어요. 호흡기 약은 공기 나쁜 날 카드 상단에 따로 강조.</p>
+            <div class="chips"><span class="chip">5슬롯</span><span class="chip">스트릭</span><span class="chip">PDF 의료진 공유</span></div>
+          </div>
+        </div>
+        <div class="t-item coral">
+          <div class="marker">📒</div>
+          <div class="t-card">
+            <div class="row1"><b>⑤ 조언 가이드 — 실생활에 진짜 도움</b><span class="stamp">앱이 아닌 친구처럼</span></div>
+            <p>"미세먼지 좋은 음식이 뭐예요?" "환기는 언제?" "마스크는 KF94? KF80?" — 부모님 세대가 매번 검색해야 했던 질문들을, 환경부·질병관리청·식약처 같은 공식 자료로 묶어 한 곳에. 35개 카드, 카테고리별 필터.</p>
+            <div class="chips"><span class="chip">35개 카드</span><span class="chip">전문기관</span><span class="chip">민간요법</span></div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="marker">📰</div>
+          <div class="t-card">
+            <div class="row1"><b>⑥ 뉴스 탭 — 짜투리지만 있으면 좋은</b><span class="stamp">덤 같은 기능</span></div>
+            <p>핵심은 아니지만 매일 한 번 들어왔을 때 자연스럽게 보이도록. 미세먼지 뉴스, 실시간 주요 뉴스, 환경부·질병관리청 정보 — 신뢰할 수 있는 출처만.</p>
+            <div class="chips"><span class="chip">미세먼지 뉴스</span><span class="chip">실시간</span><span class="chip">전문기관</span></div>
+          </div>
+        </div>
+        <div class="t-item leaf">
+          <div class="marker">🦻</div>
+          <div class="t-card">
+            <div class="row1"><b>⑦ 모든 연령을 위한 디자인</b><span class="stamp">시작이자 끝</span></div>
+            <p>글자 크기 3단계, 다크 모드 자동, 고대비, 화면 읽어주기, 음성 안내까지. 눈이 잘 안 보이시는 분, 휴대폰이 어려운 분 — 모두를 위한 화면이 되도록 했어요.</p>
+            <div class="chips"><span class="chip">큰 글씨</span><span class="chip">다크 모드</span><span class="chip">고대비</span><span class="chip">음성 안내</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 사용한 도구 (친근하게) -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">🧰 사용한 도구들</span>
+      <h2 class="section-title">기술이라기보단,<br/>정성이에요.</h2>
+      <p class="section-sub">사용자에겐 한 번의 알림, 한 번의 슬라이드처럼 단순해 보이지만 — 뒤에서는 여러 곳의 공식 데이터를 모으고, 한국 지도와 약 이미지 인식, 위젯까지 같이 돌고 있어요.</p>
+
+      <div class="stack-grid">
+        <div class="tech"><span class="ic">🤖</span><b>안드로이드 앱</b><small>Kotlin으로 직접 만들었어요</small></div>
+        <div class="tech"><span class="ic">🎨</span><b>화면 디자인</b><small>색·폰트·아이콘 모두 손수</small></div>
+        <div class="tech"><span class="ic">🗺️</span><b>한국 지도</b><small>네이버 지도</small></div>
+        <div class="tech"><span class="ic">📷</span><b>약 이름 자동 인식</b><small>약봉투 사진 한 장이면 끝</small></div>
+        <div class="tech"><span class="ic">🧱</span><b>홈 화면 위젯 3종</b><small>4×2 / 2×2 / 2×1 사이즈</small></div>
+        <div class="tech"><span class="ic">🌫️</span><b>5개 공식 데이터 소스</b><small>에어코리아·서울·AQICN·OpenMeteo·기상청</small></div>
+        <div class="tech"><span class="ic">🏥</span><b>응급·약국 데이터</b><small>국립중앙의료원 공공데이터</small></div>
+        <div class="tech"><span class="ic">🔔</span><b>푸시 알림</b><small>임계치 도달 시 자동</small></div>
+        <div class="tech"><span class="ic">⚡</span><b>빠른 첫 실행</b><small>어르신 폰에서도 바로</small></div>
+        <div class="tech"><span class="ic">🦻</span><b>모두를 위한 접근성</b><small>큰 글씨·다크 모드·음성 안내</small></div>
+      </div>
+
+      <div class="nums">
+        <div class="num-cell"><b>5</b><span>개 공식 데이터 소스</span></div>
+        <div class="num-cell"><b>35+</b><span>개 조언 카드</span></div>
+        <div class="num-cell"><b>3</b><span>가지 위젯 사이즈</span></div>
+        <div class="num-cell"><b>5</b><span>등급 행동 가이드</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 솔직하게 말하자면 — 1인 개발자 · 첫 앱 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">🙏 솔직하게 말하자면</span>
+      <h2 class="section-title">혼자, 처음으로<br/>만들고 있어요.</h2>
+      <p class="section-sub">기획·디자인·개발·QA 모두 혼자 진행하는 <b>1인 개발</b>이고, <b>이번이 처음 출시하는 안드로이드 앱</b>이에요. 부족한 점이 분명 있을 거예요.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px">
+        <div style="background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:24px">
+          <div style="font-size:36px">🧑‍💻</div>
+          <h4 style="margin:10px 0 6px;font-size:18px;letter-spacing:-.01em;font-weight:800">1인 개발</h4>
+          <p style="margin:0;font-size:14px;color:var(--ink-2);line-height:1.7">기획·디자인·코드·테스트 모두 혼자. 그래서 매일 한 사람의 마음과 시간이 통째로 들어가요.</p>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:24px">
+          <div style="font-size:36px">🌱</div>
+          <h4 style="margin:10px 0 6px;font-size:18px;letter-spacing:-.01em;font-weight:800">첫 출시 앱</h4>
+          <p style="margin:0;font-size:14px;color:var(--ink-2);line-height:1.7">처음 만드는 앱이라 미숙한 점도 많을 거예요. 작은 버그·어색한 흐름이 분명 있겠지만, 솔직하게 인정하고 빠르게 고쳐 갈게요.</p>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:24px">
+          <div style="font-size:36px">💬</div>
+          <h4 style="margin:10px 0 6px;font-size:18px;letter-spacing:-.01em;font-weight:800">피드백 환영</h4>
+          <p style="margin:0;font-size:14px;color:var(--ink-2);line-height:1.7">사용 중 불편한 점, 더 있었으면 하는 기능, 어르신이 헤매시는 부분 — 무엇이든 메일로 보내주시면 정말 감사하겠습니다.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding:24px;background:var(--cream);border:1.5px solid var(--ink);border-radius:24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+        <div style="font-size:36px">📮</div>
+        <div style="flex:1;min-width:240px">
+          <b style="font-size:16px;letter-spacing:-.01em">피드백·버그 제보 메일</b>
+          <p style="margin:4px 0 0;font-size:13px;color:var(--ink-2);line-height:1.5">사소해 보이는 의견 한 줄이 앱을 크게 바꿔요. 출시 후 24시간 내 답변드릴게요.</p>
+        </div>
+        <a class="btn btn-coral btn-lg" href="mailto:joyss00000@gmail.com" style="white-space:nowrap">📧 메일 보내기</a>
+      </div>
+
+      <!-- 후원 안내 — 다운로드 페이지로 이동 -->
+      <div style="margin-top:14px;padding:18px 22px;background:#FFE5D6;border:1.5px solid var(--ink);border-radius:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="font-size:28px">☕</div>
+        <div style="flex:1;min-width:240px">
+          <b style="font-size:15px;letter-spacing:-.01em">따뜻한 응원도 환영해요</b>
+          <p style="margin:3px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5">서버비·다음 기능 개발에만 써요. 부담 없이, 강요 없이.</p>
+        </div>
+        <a class="btn btn-ghost" style="white-space:nowrap" href="download.html">자유 후원 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 마무리 메시지 -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <div class="signature">
+        <span class="deco-cloud c1"></span><span class="deco-cloud c2"></span>
+        <span class="eyebrow" style="background:#fff;color:var(--coral);border-color:#fff">💌 마음으로</span>
+        <h3 style="margin-top:14px">완벽하지 않아도, 매일 다듬어서<br/>여러분의 건강한 일상에 조금이라도.</h3>
+        <p>우리 부모님과 할머니·할아버지가 쓴다는 마음으로 시작했고, 이제는 <b>이 앱을 써주시는 모든 분이 더 건강한 하루를 보내셨으면</b> 하는 마음으로 만들고 있어요. 미세먼지 한 번 더 확인하시고, 약 한 번 더 챙기시고, 위급할 때 한 번 더 빨리 닿을 수 있게.</p>
+        <p style="margin-top:10px">아직 부족하지만, 여러분의 의견이 모이면 점점 더 단단해질 거예요. <b>출시는 시작일 뿐</b>, 완벽한 앱으로 다듬어 가는 길에 함께해 주세요. 잘 부탁드립니다.</p>
+        <span class="sign-name">— 신재우 · 1인 개발 · 첫 앱</span>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+  <div class="dm-card">
+    <div class="dm-em">☕</div>
+    <h3 id="dmTitle">후원해주셔서<br/><b>정말 감사합니다!</b></h3>
+    <p>후원자 명단에 <b>보내시는 분 이름</b>을 올려도 될까요?<br/>표시할 이름은 닉네임으로 바꾸실 수 있어요.</p>
+    <div class="dm-btns">
+      <button class="dm-btn dm-yes" id="dmYes" type="button">✅ 예 — 명단에 올려주세요</button>
+      <button class="dm-btn dm-no" id="dmNo" type="button">아니요 — 익명으로 후원할게요</button>
+    </div>
+    <div class="dm-note">'예'를 선택하시면 짧은 폼이 새 탭에 열려요<br/>(이름 · 이메일 · 송금일 · 한 마디 응원)</div>
+  </div>
+<footer>
+  <div class="container foot-grid">
+    <div>© 2026 신재우 · 미세먼지 알리미 · Made with care 💛</div>
+    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

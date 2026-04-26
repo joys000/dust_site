@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="keywords" content="미세먼지 농도, 미세먼지 측정, 미세먼지 농도 측정, PM2.5, PM10, 우리 동네 미세먼지, 현재 위치 미세먼지, 미세먼지 알림 앱, 자외선 지수, 미세먼지 알리미, 안드로이드 미세먼지, 어르신 미세먼지 앱, 미세먼지 위젯, 호흡기 약 알림, 응급실 약국 찾기, 미세먼지 일기, OpenMeteo" />
+<meta name="author" content="미세먼지 알리미" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#FF6B47" />
+
+<!-- Open Graph / 메신저·SNS 공유 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="체험해보기 — 미세먼지 알리미" />
+<meta property="og:description" content="설치 없이 바로 체험. 현재 위치 미세먼지·자외선·바람·온도를 1초 안에 무료로 확인." />
+<meta property="og:image" content="app_icon_512.png" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:site_name" content="미세먼지 알리미" />
+
+<!-- 트위터 카드 -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="미세먼지 알리미 — 우리 동네 미세먼지 1초 측정" />
+<meta name="twitter:description" content="PM2.5·PM10·자외선·온도까지 무료로. 안드로이드 앱 2026.05.15 출시." />
+<meta name="twitter:image" content="app_icon_512.png" />
+
+<title>체험해보기 — 미세먼지 알리미</title>
+<meta name="description" content="설치 없이 바로 체험. 현재 위치 미세먼지·자외선·바람·온도를 1초 안에 무료로 확인." />
+<!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
+<!-- <link rel="canonical" href="https://your-domain.com/" /> -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="icon" href="app_icon_512.png" type="image/png" />
+<link rel="apple-touch-icon" href="app_icon_512.png" />
+
+<!-- Schema.org 구조화 데이터 — 검색 결과 풍부 표시 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "name": "미세먼지 알리미",
+      "operatingSystem": "Android 8.0+",
+      "applicationCategory": "HealthApplication",
+      "description": "PM2.5·PM10·자외선·바람·온도를 한 화면에. 응급실·약국·복약 리마인더·미세먼지 일기까지 통합한 모든 연령용 미세먼지 앱.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"},
+      "datePublished": "2026-05-15",
+      "inLanguage": "ko-KR",
+      "image": "app_icon_512.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "미세먼지 알리미",
+      "inLanguage": "ko-KR",
+      "description": "현재 위치 미세먼지 농도 무료 측정. PM2.5·PM10 실시간 확인."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "미세먼지 농도는 어떻게 측정하나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "이 페이지에서 위치 권한을 허용하시면 1초 안에 우리 동네 PM2.5와 PM10 농도를 확인할 수 있어요. 데이터는 OpenMeteo Air Quality API를 통해 실시간으로 가져옵니다."}},
+        {"@type": "Question", "name": "PM2.5와 PM10의 차이는 무엇인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM10은 지름 10μm 이하의 미세먼지로 코·기관지에 걸려 자극을 유발해요. PM2.5는 지름 2.5μm 이하의 초미세먼지로 폐포까지 침투해 혈관으로 이동할 수 있어 더 위험합니다."}},
+        {"@type": "Question", "name": "미세먼지 '나쁨'은 몇 ㎍/㎥부터인가요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "PM2.5 기준 76㎍/㎥ 이상부터 '나쁨', 151㎍/㎥ 이상은 '매우 나쁨'입니다. '나쁨' 단계에서는 KF94 마스크 착용과 외출 단축을 권장해요."}},
+        {"@type": "Question", "name": "이 데이터는 어디서 오나요?",
+         "acceptedAnswer": {"@type": "Answer", "text": "체험 페이지는 OpenMeteo의 무료 공개 API를 사용합니다. 실제 안드로이드 앱은 에어코리아·서울 열린데이터·AQICN·OpenMeteo·기상청 5개 공식 소스를 비교해 가장 안전한 등급을 보여줍니다."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-logo" style="overflow:hidden;background:none;padding:0">
+        <img id="app-logo" src="app_icon_512.png" alt="미세먼지 알리미" style="width:100%;height:100%;display:block;object-fit:cover" />
+      </span>
+      <div><b>미세먼지 알리미</b><small>Android · v1.0.0</small></div>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link active" href="index.html">홈</a>
+      <a class="nav-link"   style="background:var(--coral);color:#fff" href="try.html">🌫 체험해보기</a>
+      <a class="nav-link" href="search.html">장소·대기·날씨</a>
+      <a class="nav-link" href="map.html">응급·보건·약국</a>
+      <a class="nav-link" href="extras.html">부가기능</a>
+      <a class="nav-link" href="advice.html">조언</a>
+      <a class="nav-link" href="story.html">만든 이야기</a>
+      <a class="nav-link" href="donors.html">응원해주신 분들</a>
+      <a class="nav-link" href="download.html">다운로드</a>
+    </nav>
+    <a class="btn btn-coral nav-cta" href="download.html">앱 받기</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<aside class="mobile-menu" id="mobileMenu" role="menu" aria-label="모바일 메뉴">
+  <a class="menu-link" href="index.html"><span class="ic">🏠</span>홈<span class="arr">→</span></a>
+  <a class="menu-link cta" href="try.html"><span class="ic">🌫</span>체험해보기 (인기)<span class="arr">→</span></a>
+  <a class="menu-link" href="search.html"><span class="ic">🌤</span>장소·대기·날씨<span class="arr">→</span></a>
+  <a class="menu-link" href="map.html"><span class="ic">🚑</span>응급·보건·약국<span class="arr">→</span></a>
+  <a class="menu-link" href="extras.html"><span class="ic">💊</span>부가기능<span class="arr">→</span></a>
+  <a class="menu-link" href="advice.html"><span class="ic">📒</span>조언<span class="arr">→</span></a>
+  <a class="menu-link" href="story.html"><span class="ic">💌</span>만든 이야기<span class="arr">→</span></a>
+  <a class="menu-link" href="donors.html"><span class="ic">☕</span>응원해주신 분들<span class="arr">→</span></a>
+  <a class="menu-link" href="download.html"><span class="ic">📲</span>다운로드<span class="arr">→</span></a>
+</aside>
+<main id="try" class="page active">
+  <section class="try-hero">
+    <div class="container">
+      <span class="eyebrow">🌫 무료 체험 · 설치 없이 바로</span>
+      <h1>지금 우리 동네<br/><em>미세먼지 농도</em>는 얼마일까?</h1>
+      <p class="lead">위치 권한 한 번이면 끝. <b>PM2.5·PM10·자외선·온도·습도·바람</b>을 1초 안에 확인할 수 있어요. 데이터는 OpenMeteo Air Quality API 실시간 무료 공개 데이터.</p>
+      <div class="key-row">
+        <span>#미세먼지 농도 측정</span>
+        <span>#PM2.5 실시간</span>
+        <span>#우리 동네 미세먼지</span>
+        <span>#자외선 지수</span>
+        <span>#무료</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:24px">
+    <div class="container">
+      <div class="measure-panel">
+        <div class="measure-inner">
+          <div class="measure-step" id="trIdle">
+            <div style="font-size:64px;line-height:1">📍</div>
+            <h3>위치 잡고 바로 시작!</h3>
+            <p>위치 권한을 허용하시면 가장 정확한 측정을 할 수 있어요.<br/>거부하셔도 동네 이름으로 검색 가능합니다.</p>
+            <div class="actions">
+              <button class="btn-big" id="trGeoBtn">📍 현재 위치로 측정하기</button>
+              <button class="btn-big alt" id="trDefaultBtn">🏙 서울로 시작</button>
+            </div>
+            <div style="font-size:13px;color:var(--ink-3);font-weight:700;margin-top:6px">또는 동네 이름으로 검색</div>
+            <form class="input-row" id="trSearchForm" autocomplete="off">
+              <input id="trSearchInput" placeholder="예: 강남구 역삼동, 부산 해운대구, 제주" />
+              <button class="btn-big" type="submit" style="padding:13px 20px;font-size:14px">🔍 검색</button>
+            </form>
+          </div>
+
+          <div class="tr-loading" id="trLoading">
+            <div class="spinner"></div>
+            <div style="font-weight:800;color:var(--ink)">공기 상태를 확인하고 있어요...</div>
+          </div>
+
+          <div class="tr-error" id="trError"></div>
+
+          <div class="tr-result" id="trResult">
+            <div class="tr-card">
+              <div class="tr-loc-line">
+                <div class="loc"><span>📍</span><span id="trLocName">—</span></div>
+                <div class="ts" id="trTs">방금 측정</div>
+              </div>
+              <div class="tr-face-wrap">
+                <div class="tr-face" id="trFace">
+                  <div>
+                    <div class="em" id="trFaceEm">😐</div>
+                    <div class="lt" id="trFaceLabel">측정 중</div>
+                  </div>
+                </div>
+                <div class="tr-summary">
+                  <div class="pm-label">PM2.5 · 초미세먼지</div>
+                  <div class="pm-big"><span id="trPm25">--</span><small>㎍/㎥</small></div>
+                  <div class="advice-line" id="trAdviceLine">위치를 선택해주세요.</div>
+                </div>
+              </div>
+              <div class="tr-grid">
+                <div class="tr-cell"><div class="k">🌫 PM10</div><div class="v"><span id="trPm10">--</span><small>㎍/㎥</small></div></div>
+                <div class="tr-cell"><div class="k">🌞 자외선</div><div class="v"><span id="trUv">--</span></div></div>
+                <div class="tr-cell"><div class="k">🌡 기온</div><div class="v"><span id="trTemp">--</span><small>℃</small></div></div>
+                <div class="tr-cell"><div class="k">💧 습도</div><div class="v"><span id="trHum">--</span><small>%</small></div></div>
+                <div class="tr-cell"><div class="k">💨 바람</div><div class="v"><span id="trWind">--</span><small>m/s</small></div></div>
+                <div class="tr-cell"><div class="k">☁ 날씨</div><div class="v" style="font-size:18px"><span id="trWx">--</span></div></div>
+              </div>
+              <div class="tr-foot">
+                <span>출처: <a href="https://open-meteo.com/" target="_blank" rel="noopener">OpenMeteo</a> · 무료 공개 데이터</span>
+                <button class="btn-big alt" style="padding:9px 16px;font-size:13px;box-shadow:0 4px 0 var(--ink)" id="trRefreshBtn">↻ 다시 갱신</button>
+              </div>
+            </div>
+
+            <!-- 더 정확한 알림은 앱에서 -->
+            <div style="margin-top:18px;padding:24px;background:var(--coral);color:#fff;border:1.5px solid var(--ink);border-radius:24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;box-shadow:var(--shadow-soft)">
+              <div style="font-size:48px">📲</div>
+              <div style="flex:1;min-width:240px">
+                <h4 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em">더 정확한 알림은 앱에서</h4>
+                <p style="margin:6px 0 0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.95)">앱은 5개 공식 소스(에어코리아·서울·AQICN·OpenMeteo·기상청)를 비교해서 가장 안전한 등급을 알려드리고, 임계치 도달 시 자동 푸시·홈 위젯·복약 리마인더까지 한 번에.</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="btn-big alt" style="padding:12px 20px;font-size:14px" href="download.html">📲 앱 받기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교육 콘텐츠 (검색 유입자용 + SEO) -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">📖 알아두면 좋아요</span>
+      <h2 class="section-title">미세먼지,<br/>이렇게 읽으세요.</h2>
+      <p class="section-sub">검색하다 들어오신 분들도 한 번 훑어보시면 좋아요. 위 측정 결과를 정확하게 해석할 수 있어요.</p>
+
+      <div class="seo-grid">
+        <div class="seo-card">
+          <h3>🌫 PM2.5 vs PM10, 뭐가 다른가요?</h3>
+          <p>둘 다 미세먼지인데 입자 크기가 달라요. <b>PM10</b>은 지름 10μm 이하의 미세먼지로 코·기관지에 걸려 자극을 일으키고, <b>PM2.5</b>는 지름 2.5μm 이하의 초미세먼지로 폐포까지 침투해 혈관으로 이동할 수 있어 더 위험해요.</p>
+          <ul>
+            <li>PM10: 황사·도로 비산먼지가 주 원인</li>
+            <li>PM2.5: 자동차 배출가스·공장 화학반응이 주 원인</li>
+            <li>WHO PM2.5 권고치 연평균 5㎍/㎥, 한국 기준 15㎍/㎥</li>
+          </ul>
+        </div>
+        <div class="seo-card">
+          <h3>📊 PM2.5 단계별 의미 (5등급)</h3>
+          <p>한국 환경부 기준입니다. 등급에 따라 행동 요령이 달라져요.</p>
+          <ul style="list-style:none;padding:0;margin-top:10px">
+            <li style="padding:8px 12px;background:#DBEAFE;border:1.5px solid var(--ink);border-radius:10px;margin-bottom:6px"><b>🌟 아주 좋음:</b> 0–15㎍/㎥ — 야외 운동 OK</li>
+            <li style="padding:8px 12px;background:#D1FAE5;border:1.5px solid var(--ink);border-radius:10px;margin-bottom:6px"><b>😊 좋음:</b> 16–35 — 일상 활동 무리 없음</li>
+            <li style="padding:8px 12px;background:#FFE7B2;border:1.5px solid var(--ink);border-radius:10px;margin-bottom:6px"><b>😐 보통:</b> 36–75 — 민감군 장시간 외출 자제</li>
+            <li style="padding:8px 12px;background:#FFB7A0;border:1.5px solid var(--ink);border-radius:10px;margin-bottom:6px"><b>🙁 나쁨:</b> 76–150 — KF94 마스크 필수</li>
+            <li style="padding:8px 12px;background:#FECACA;border:1.5px solid var(--ink);border-radius:10px"><b>😷 매우나쁨:</b> 151+ — 외출 자제, 환기 금지</li>
+          </ul>
+        </div>
+        <div class="seo-card">
+          <h3>🌞 자외선 지수도 같이 봐야 해요</h3>
+          <p>맑은 날 미세먼지가 좋아도 자외선이 위험할 수 있어요. UV 지수 6 이상이면 모자·선글라스, 8 이상은 외출 자제가 권장됩니다.</p>
+          <ul>
+            <li>0–2 낮음 / 3–5 보통 / 6–7 높음</li>
+            <li>8–10 매우 높음 / 11+ 위험</li>
+            <li>봄·여름엔 미세먼지가 좋아도 UV가 높을 수 있음</li>
+          </ul>
+        </div>
+        <div class="seo-card">
+          <h3>📍 위치 권한이 안 잡혀요</h3>
+          <p>브라우저나 OS 설정에서 막혀 있을 수 있어요. <b>주소 검색</b>이나 <b>"서울로 시작"</b> 버튼으로 우회할 수 있고, 아래 방법도 시도해보세요.</p>
+          <ul>
+            <li>주소창 왼쪽 자물쇠 → 위치 허용으로 변경</li>
+            <li>HTTPS 연결로 접속하셨는지 확인</li>
+            <li>모바일은 시스템 설정 → 위치 서비스 ON</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ for SEO -->
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">❓ 자주 묻는 질문</span>
+      <h2 class="section-title">궁금한 점.</h2>
+
+      <div class="faq">
+        <details>
+          <summary>이 측정값은 정확한가요?</summary>
+          <p>OpenMeteo의 무료 공개 API에서 받아오는 값으로, 인근 측정소의 실시간 데이터를 기반으로 합니다. 정확도가 매우 높지만 측정소 위치에 따라 1–2㎍/㎥ 정도의 오차는 있을 수 있어요. <b>실제 안드로이드 앱은 5개 공식 소스(에어코리아·서울 열린데이터·AQICN·OpenMeteo·기상청)를 비교해서 더 정확한 등급</b>을 보여드립니다.</p>
+        </details>
+        <details>
+          <summary>제 위치 정보는 저장되나요?</summary>
+          <p>아니요, 이 페이지는 위치를 어디에도 저장하지 않아요. OpenMeteo API 호출에만 일회성으로 사용되고, 페이지를 닫으면 사라집니다. 서버도 따로 운영하지 않아요(정적 페이지).</p>
+        </details>
+        <details>
+          <summary>'PM2.5 나쁨'은 외출하면 안 되나요?</summary>
+          <p>'나쁨'(76–150㎍/㎥) 단계에서는 KF94 마스크 착용과 외출 시간 단축을 권장합니다. 천식·COPD 같은 호흡기 질환자나 어린이·노약자·임산부는 더 주의가 필요하고, '매우나쁨'(151+)부터는 가급적 외출을 자제하세요.</p>
+        </details>
+        <details>
+          <summary>현재 위치가 정확하지 않아요</summary>
+          <p>WiFi가 꺼져 있으면 GPS만 사용해서 정확도가 떨어질 수 있어요. 모바일은 GPS + WiFi가 모두 켜져 있을 때 가장 정확합니다. 또는 <b>주소 검색</b>으로 정확한 위치를 직접 입력하실 수 있어요.</p>
+        </details>
+        <details>
+          <summary>매일 알림으로 받고 싶어요</summary>
+          <p>안드로이드 앱을 설치하시면 등록한 장소의 공기가 설정한 등급 이상으로 나빠질 때 자동으로 푸시 알림이 와요. 1시간마다 자동 갱신되고, 홈 화면 위젯도 3가지 사이즈로 제공합니다. <a  href="download.html">앱 다운로드 안내</a>를 확인해보세요.</p>
+        </details>
+        <details>
+          <summary>황사하고 미세먼지는 다른가요?</summary>
+          <p>네, 다릅니다. <b>황사</b>는 중국·몽골 사막에서 날아오는 자연 발생 모래먼지(입자 큼), <b>미세먼지</b>는 자동차·공장 등에서 발생한 인공 화학 입자(입자 작음)예요. 둘 다 호흡기에 좋지 않으니 KF80/94 마스크를 착용하세요. 자세한 비교는 <a  href="advice.html">조언 페이지</a>에서.</p>
+        </details>
+        <details>
+          <summary>이 사이트는 광고가 있나요?</summary>
+          <p>이 사이트는 광고 없이 운영해요. 앱도 <b>출시 직후엔 광고 없이 완전 무료</b>로 시작합니다. 앱이 안정되면 그때 거슬리지 않는 선에서 최소한의 광고와 광고 제거 옵션을 차차 도입할 계획이에요. 부모님과 할머니·할아버지가 편하게 쓰실 수 있게 만드는 게 시작이었거든요.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+  <div class="dm-card">
+    <div class="dm-em">☕</div>
+    <h3 id="dmTitle">후원해주셔서<br/><b>정말 감사합니다!</b></h3>
+    <p>후원자 명단에 <b>보내시는 분 이름</b>을 올려도 될까요?<br/>표시할 이름은 닉네임으로 바꾸실 수 있어요.</p>
+    <div class="dm-btns">
+      <button class="dm-btn dm-yes" id="dmYes" type="button">✅ 예 — 명단에 올려주세요</button>
+      <button class="dm-btn dm-no" id="dmNo" type="button">아니요 — 익명으로 후원할게요</button>
+    </div>
+    <div class="dm-note">'예'를 선택하시면 짧은 폼이 새 탭에 열려요<br/>(이름 · 이메일 · 송금일 · 한 마디 응원)</div>
+  </div>
+<footer>
+  <div class="container foot-grid">
+    <div>© 2026 신재우 · 미세먼지 알리미 · Made with care 💛</div>
+    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

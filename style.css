@@ -16,7 +16,7 @@
   .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
   /* NAV — pill style */
-  .nav{position:sticky;top:16px;z-index:50;margin:16px auto 0;max-width:1180px;padding:0 16px}
+  .nav{position:sticky;top:0;z-index:50;margin:0 auto;max-width:1212px;padding:16px 16px 8px;background:var(--cream)}
   .nav-inner{background:#fff;border-radius:999px;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;box-shadow:var(--shadow-soft)}
   .brand{display:flex;align-items:center;gap:10px;padding:6px 8px}
   .brand-logo{width:36px;height:36px;border-radius:50%;background:radial-gradient(120% 120% at 30% 30%, #FFD7BD 0%, var(--coral) 60%);display:grid;place-items:center;color:#fff;box-shadow:inset 0 -6px 12px rgba(0,0,0,.08)}
@@ -216,10 +216,7 @@
   .mobile-menu .menu-link.cta{background:var(--coral);color:#fff;box-shadow:0 3px 0 #b33d1e}
   .mobile-menu .menu-link.cta .arr{color:rgba(255,255,255,.85)}
 
-  @media(max-width:960px){
-    .hamburger{display:block}
-    .nav-cta{display:none}
-  }
+  @media(max-width:1100px){.hamburger{display:block}.nav-cta{display:none}.nav-links{display:none}}
 
   /* === MOBILE COMPREHENSIVE — 종합 모바일 반응성 보강 === */
   /* 5소스 신뢰도 그리드 — 모바일에선 가로 스크롤 (5칸 비교감 유지) */

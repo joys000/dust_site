@@ -24,6 +24,7 @@
 
 const DONORS = [
     { name:'테스트', message:'테스트 입니다.', date:'2026-04-27', channel:'toss' },
+    { name:'나테스트', message:'정말 테스트', date:'2026-04-27', channel:'kakao' },
   // ── 첫 후원자가 들어오면 이 줄 위에 추가 ──
   // 예시: { name:'홍길동', message:'좋은 앱 만들어주셔서 감사합니다 :)', date:'2026-05-16', channel:'kakao' },
 ];

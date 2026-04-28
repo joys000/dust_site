@@ -717,6 +717,32 @@
     display: block; margin: 0 auto; font-family: inherit;
   }
   .prereg-hint { font-size: 11.5px; color: var(--ink-3, #847A6E); text-align: center; margin: 10px 0 0; line-height: 1.5; }
+  .prereg-divider {
+    display:flex;align-items:center;gap:10px;margin:18px 0 10px;
+    font-size:11px;font-weight:800;color:var(--ink-3,#847A6E);
+    text-transform:uppercase;letter-spacing:.12em;
+  }
+  .prereg-divider::before,.prereg-divider::after{
+    content:'';flex:1;height:1px;background:rgba(31,26,23,.12);
+  }
+  .prereg-ig {
+    display:flex;align-items:center;gap:12px;
+    padding:11px 13px;text-decoration:none;
+    border:1.5px solid var(--ink,#1F1A17);border-radius:14px;
+    background:#fff;color:var(--ink,#1F1A17);
+    box-shadow:3px 3px 0 var(--ink,#1F1A17);
+    transition:transform .15s,box-shadow .15s;
+  }
+  .prereg-ig:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink,#1F1A17)}
+  .prereg-ig-ic{
+    width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;
+    background:linear-gradient(135deg,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%);
+    border-radius:11px;color:#fff;
+  }
+  .prereg-ig-txt{flex:1;display:flex;flex-direction:column;gap:1px;text-align:left;min-width:0}
+  .prereg-ig-txt b{font-size:13.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink,#1F1A17)}
+  .prereg-ig-txt small{font-size:11.5px;color:var(--ink-3,#847A6E);font-weight:600}
+  .prereg-ig-arrow{font-size:18px;color:var(--ink-3,#847A6E);font-weight:800;flex-shrink:0}
   @media (max-width: 480px) {
     .prereg-card { padding: 24px 20px 18px; border-radius: 20px; }
     .prereg-title { font-size: 20px; }
@@ -737,6 +763,17 @@
     </div>
     <a class="prereg-cta" href="https://forms.gle/W6aDA9DCMDtbSWo88" target="_blank" rel="noopener" id="preregGo">📝 1분 만에 사전 알림 신청 →</a>
     <p class="prereg-hint">구글 폼으로 이동해요 · 새 탭에서 열려요</p>
+    <div class="prereg-divider"><span>또는</span></div>
+    <a class="prereg-ig" href="https://www.instagram.com/dustnotice/" target="_blank" rel="noopener" aria-label="Instagram @dustnotice 팔로우">
+      <span class="prereg-ig-ic" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </span>
+      <span class="prereg-ig-txt">
+        <b>Instagram @dustnotice</b>
+        <small>출시 카운트다운·뒷이야기·일상</small>
+      </span>
+      <span class="prereg-ig-arrow" aria-hidden="true">→</span>
+    </a>
     <button class="prereg-skip" id="preregSkip" type="button">다음에 할게요</button>
   </div>
 </div>
@@ -787,13 +824,10 @@
 <footer>
   <div class="container foot-grid">
     <div>© 2026 쨍이 · 미세먼지 알리미 · Made with care 💛</div>
-<<<<<<< HEAD
-    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="terms_of_service.html" target="_blank">서비스 이용약관</a><a href="location_service_terms.html" target="_blank">위치기반서비스 약관</a><a href="open_source_licenses.html" target="_blank">오픈소스 라이선스</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
-=======
-    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="terms_of_service.html" target="_blank">서비스 이용약관</a><a href="location_service_terms.html" target="_blank">위치기반서비스 약관</a><a href="open_source_licenses.html" target="_blank">오픈소스 라이선스</a><a href="https://forms.gle/HF3SkeNySvWvCG4j8" target="_blank" rel="noopener">📝 의견·문의 보내기</a><a  href="download.html">다운로드 안내</a></div>
->>>>>>> 882a5a5 (Site update: new screenshots, demo videos, legal docs)
+    <div class="foot-links"><a href="https://www.instagram.com/dustnotice/" target="_blank" rel="noopener" class="ig-link" aria-label="Instagram @dustnotice"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor"/></svg>@dustnotice</a><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="terms_of_service.html" target="_blank">서비스 이용약관</a><a href="location_service_terms.html" target="_blank">위치기반서비스 약관</a><a href="open_source_licenses.html" target="_blank">오픈소스 라이선스</a><a href="https://forms.gle/HF3SkeNySvWvCG4j8" target="_blank" rel="noopener">📝 의견·문의 보내기</a><a  href="download.html">다운로드 안내</a></div>
   </div>
 </footer>
-<script src="donors-data.js"></script>`r`n<script src="script.js"></script>
+<script src="donors-data.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

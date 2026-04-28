@@ -174,8 +174,11 @@
   /* FOOTER */
   footer{padding:36px 0;background:var(--cream);color:var(--ink-3);font-size:13px;border-top:1.5px solid var(--ink)}
   .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
-  .foot-links{display:flex;gap:18px}
+  .foot-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
   .foot-links a:hover{color:var(--ink)}
+  .foot-links .ig-link{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:linear-gradient(135deg,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%);color:#fff;font-weight:700;box-shadow:0 2px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+  .foot-links .ig-link:hover{transform:translateY(-1px);box-shadow:0 3px 0 var(--ink);color:#fff}
+  .foot-links .ig-link svg{flex-shrink:0}
 
   /* === HAMBURGER + 모바일 드롭다운 메뉴 (화면 안 가림) === */
   .hamburger{display:none;background:#fff;border:1.5px solid var(--ink);padding:8px;cursor:pointer;color:var(--ink);border-radius:12px;line-height:0;box-shadow:var(--shadow-soft);transition:.18s}

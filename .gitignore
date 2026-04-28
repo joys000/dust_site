@@ -1,0 +1,12 @@
+# 작업용 원본 사진/영상 (이미 사이트에 적용됨)
+repleace photo/
+repleace videos/
+
+# 작업 중 백업 폴더
+app_screens_backup/
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+*.swp
+*~

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>오픈소스 라이선스 - 미세먼지 알리미</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; background: #ffffff; color: #1e293b;
+            font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "맑은 고딕", sans-serif;
+            line-height: 1.7; font-size: 15px; -webkit-text-size-adjust: 100%;
+        }
+        .container { max-width: 760px; margin: 0 auto; padding: 24px 20px 60px 20px; }
+        header { border-bottom: 2px solid #6366f1; padding-bottom: 16px; margin-bottom: 20px; }
+        h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; }
+        .meta { font-size: 13px; color: #64748b; }
+        .intro { background: #eef2ff; padding: 14px 16px; border-radius: 10px; margin: 18px 0 26px 0; font-size: 14px; color: #312e81; }
+        h2 { font-size: 17px; font-weight: 700; color: #0f172a; margin: 32px 0 10px 0; padding-left: 10px; border-left: 4px solid #6366f1; }
+        h3 { font-size: 15px; font-weight: 700; color: #1e293b; margin: 18px 0 6px 0; }
+        ul { padding-left: 22px; margin: 6px 0 14px 0; }
+        li { margin-bottom: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0 18px 0; font-size: 13.5px; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background: #f8fafc; font-weight: 700; color: #334155; }
+        code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; font-size: 13px; color: #334155; }
+        .license-text { background: #f8fafc; padding: 14px 16px; border-radius: 8px; margin: 12px 0; font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12.5px; line-height: 1.5; white-space: pre-wrap; color: #475569; }
+        footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b; text-align: center; }
+        @media (max-width: 480px) { .container { padding: 16px 14px 40px 14px; } h1 { font-size: 20px; } h2 { font-size: 16px; } }
+        .legal-nav { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 10px 0; position: sticky; top: 0; z-index: 10; }
+        .legal-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 13px; }
+        .legal-nav a { color: #475569; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 999px; transition: background .15s; white-space: nowrap; }
+        .legal-nav a:hover { background: #e2e8f0; color: #0f172a; }
+        .legal-nav a.active { background: #3b82f6; color: #ffffff; }
+        .legal-nav .home-link { color: #0f172a; font-weight: 800; margin-right: auto; }
+        .legal-nav .home-link::before { content: "\2190 "; }
+        @media (max-width: 480px) { .legal-nav-inner { padding: 0 14px; gap: 4px 10px; font-size: 12.5px; } .legal-nav a { padding: 4px 8px; } }
+    </style>
+</head>
+<body>
+<nav class="legal-nav" aria-label="법률 문서 내비게이션">
+    <div class="legal-nav-inner">
+        <a class="home-link" href="index.html">메인</a>
+        <a href="privacy_policy.html">개인정보 처리방침</a>
+        <a href="terms_of_service.html">서비스 이용약관</a>
+        <a href="location_service_terms.html">위치기반서비스 약관</a>
+        <a class="active" href="open_source_licenses.html">오픈소스 라이선스</a>
+    </div>
+</nav>
+<div class="container">
+
+<header>
+    <h1>오픈소스 라이선스</h1>
+    <div class="meta">미세먼지 알리미 · 최종 업데이트 2026년 4월 27일</div>
+</header>
+
+<div class="intro">
+    본 앱은 다음의 오픈소스 소프트웨어를 사용하고 있습니다. 각 라이브러리의 라이선스 전문은 해당 프로젝트의 공식 저장소에서 확인하실 수 있습니다.
+</div>
+
+<h2>Apache License 2.0 라이선스 라이브러리</h2>
+
+<table>
+    <thead>
+        <tr><th>라이브러리</th><th>저작권자</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Android Jetpack (AndroidX)<br><code>androidx.core, lifecycle, activity, navigation, compose, room, datastore, work, glance, profileinstaller, hilt, splashscreen</code></td><td>The Android Open Source Project</td></tr>
+        <tr><td>Material Components for Android / Compose Material 3</td><td>Google LLC</td></tr>
+        <tr><td>Kotlin Standard Library / Coroutines<br><code>kotlinx-coroutines, kotlinx-collections-immutable</code></td><td>JetBrains s.r.o.</td></tr>
+        <tr><td>Hilt (Dagger)</td><td>Google LLC</td></tr>
+        <tr><td>Retrofit / OkHttp / Logging Interceptor</td><td>Square, Inc.</td></tr>
+        <tr><td>Gson</td><td>Google LLC</td></tr>
+        <tr><td>Coil</td><td>Coil Contributors</td></tr>
+        <tr><td>Lottie for Android</td><td>Airbnb, Inc.</td></tr>
+        <tr><td>Firebase Android SDK<br><code>firebase-messaging, firebase-crashlytics</code></td><td>Google LLC</td></tr>
+        <tr><td>Google Play services Location</td><td>Google LLC</td></tr>
+        <tr><td>Google Play In-App Review</td><td>Google LLC</td></tr>
+        <tr><td>ML Kit Text Recognition (Korean)</td><td>Google LLC</td></tr>
+    </tbody>
+</table>
+
+<h3>Apache License 2.0 전문 (요약)</h3>
+<div class="license-text">Copyright (c) 각 저작권자.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</div>
+
+<h2>Naver Maps SDK 라이선스</h2>
+<p>본 앱은 Naver Cloud Platform의 Naver Maps SDK for Android를 사용합니다.</p>
+<ul>
+    <li>저작권: NAVER Corp.</li>
+    <li>이용약관: <code>https://www.ncloud.com/policy/terms/maps</code></li>
+    <li>지도에 표시되는 "© NAVER" 저작권 표기는 약관에 따라 자동 표시되며 임의로 제거하지 않습니다.</li>
+</ul>
+
+<h2>SIL Open Font License 1.1 (폰트)</h2>
+<p>본 앱은 다음의 오픈 폰트를 사용합니다.</p>
+<ul>
+    <li><strong>Pretendard</strong> — Copyright (c) 2021- Kil Hyung-jin, with Reserved Font Name "Pretendard"</li>
+    <li>Google Fonts(<code>androidx.compose.ui:ui-text-google-fonts</code>)를 통해 동적 로드</li>
+    <li>라이선스 전문: <code>https://openfontlicense.org</code></li>
+</ul>
+
+<h2>공공데이터 출처 표시</h2>
+<p>본 앱이 표시하는 정보는 다음의 공공·외부 데이터를 기반으로 합니다.</p>
+<ul>
+    <li><strong>환경부 한국환경공단 에어코리아</strong> — 대기오염정보 서비스 (PM2.5/PM10 실측치)</li>
+    <li><strong>서울특별시 열린데이터광장</strong> — 서울 자치구별 대기질 정보</li>
+    <li><strong>OpenWeatherMap</strong> — 전 세계 대기오염 보조 데이터 (CC BY-SA 4.0)</li>
+    <li><strong>기상청(KMA) 공공데이터</strong> — 기상 실황·예보</li>
+    <li><strong>네이버 뉴스 검색 OpenAPI</strong> — 미세먼지 관련 뉴스</li>
+    <li><strong>건강보험심사평가원(HIRA)</strong> — 병원·약국 정보</li>
+    <li><strong>보건복지부 응급의료기관 현황</strong> — 응급의료센터·보건소</li>
+    <li><strong>Kakao Local API</strong> — 역지오코딩(좌표→주소)</li>
+</ul>
+
+<h2>아이콘 및 그래픽</h2>
+<ul>
+    <li>앱 자체 제작 벡터 아이콘 — © 2026 신재우</li>
+    <li>Material Symbols (Apache License 2.0) — Google LLC</li>
+</ul>
+
+<h2>라이선스 문의</h2>
+<p>오픈소스 라이선스에 관한 문의 또는 누락된 라이브러리 표기 제보는 아래 이메일로 보내주시기 바랍니다.</p>
+<ul>
+    <li>이메일: <code>joyss00000@gmail.com</code></li>
+</ul>
+
+<footer>
+    각 라이브러리의 전체 라이선스 전문은 해당 프로젝트의 공식 GitHub 저장소 또는 공식 문서를 참고해 주세요.
+</footer>
+
+</div>
+</body>
+</html>

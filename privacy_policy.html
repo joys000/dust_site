@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -123,21 +123,42 @@
             table { font-size: 12.5px; }
             th, td { padding: 6px 8px; }
         }
+        .legal-nav { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 10px 0; position: sticky; top: 0; z-index: 10; }
+        .legal-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 13px; }
+        .legal-nav a { color: #475569; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 999px; transition: background .15s; white-space: nowrap; }
+        .legal-nav a:hover { background: #e2e8f0; color: #0f172a; }
+        .legal-nav a.active { background: #3b82f6; color: #ffffff; }
+        .legal-nav .home-link { color: #0f172a; font-weight: 800; margin-right: auto; }
+        .legal-nav .home-link::before { content: "\2190 "; }
+        @media (max-width: 480px) { .legal-nav-inner { padding: 0 14px; gap: 4px 10px; font-size: 12.5px; } .legal-nav a { padding: 4px 8px; } }
     </style>
 </head>
 <body>
+<nav class="legal-nav" aria-label="법률 문서 내비게이션">
+    <div class="legal-nav-inner">
+        <a class="home-link" href="index.html">메인</a>
+        <a class="active" href="privacy_policy.html">개인정보 처리방침</a>
+        <a href="terms_of_service.html">서비스 이용약관</a>
+        <a href="location_service_terms.html">위치기반서비스 약관</a>
+        <a href="open_source_licenses.html">오픈소스 라이선스</a>
+    </div>
+</nav>
 <div class="container">
 
 <header>
     <h1>개인정보 처리방침</h1>
     <div class="meta">
         서비스명: <strong>미세먼지 알리미</strong> (Android)<br>
-        최종 개정일: 2026년 4월 20일 · 시행일: 2026년 5월 1일
+        최종 개정일: 2026년 4월 27일 · 시행일: 2026년 5월 1일
     </div>
 </header>
 
 <div class="intro">
-    <strong>미세먼지 알리미</strong>(이하 "앱")는 이용자의 개인정보를 소중히 여기며, 「개인정보 보호법」 및 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」을 비롯한 관계 법령을 준수합니다. 본 방침은 앱이 어떤 정보를 수집·이용하는지, 이용자의 권리가 무엇인지 투명하게 안내합니다.
+    <strong>미세먼지 알리미</strong>(이하 "앱")는 이용자의 개인정보를 소중히 여기며, 「개인정보 보호법」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」, 「위치정보의 보호 및 이용 등에 관한 법률」을 비롯한 관계 법령을 준수합니다. 본 방침은 앱이 어떤 정보를 수집·이용하는지, 이용자의 권리가 무엇이며 어떻게 행사할 수 있는지 투명하게 안내합니다.
+</div>
+
+<div class="notice">
+    <strong>본 사업자는 「위치정보의 보호 및 이용 등에 관한 법률 시행령」 제6조에 따라 개인위치정보를 이용자의 단말기에서만 활용할 뿐 사업자의 위치정보시스템으로 전송·저장하지 아니하므로 위치기반서비스사업 신고 면제 대상입니다.</strong> 위치정보의 처리에 관한 상세 사항은 별도의 「위치기반서비스 이용약관」을 참고하시기 바랍니다.
 </div>
 
 
@@ -280,27 +301,39 @@
 
 <!-- 6 -->
 <h2>6. 공공데이터 API 이용 안내</h2>
-<p>앱은 아래의 공공 또는 외부 API를 호출하여 대기질 정보를 조회합니다. 이 과정에서 <strong>이용자의 개인정보는 전송되지 않습니다</strong>.</p>
+<p>앱은 <strong>직접 외부 API를 호출하지 않고</strong>, 자체 서버(Supabase Edge Functions)가 아래의 공공 또는 외부 API를 호출하여 수집한 대기질·뉴스·의료기관 정보만 중계받습니다. 이 과정에서 <strong>이용자의 개인정보는 외부 API에 전송되지 않습니다</strong>. 외부 API 호출에 필요한 키는 서버 측 보안 저장소에만 보관되며 앱 배포물(APK)에는 포함되어 있지 않습니다.</p>
 <ul>
-    <li>에어코리아 (환경부·한국환경공단) 대기오염정보 서비스</li>
-    <li>서울특별시 열린데이터광장 대기질 정보</li>
-    <li>Open-Meteo Air Quality API (비상업 이용)</li>
-    <li>AQICN Air Quality Open Data Platform</li>
+    <li>에어코리아 (환경부·한국환경공단) 대기오염정보 서비스 — 전국 실측 PM2.5/PM10</li>
+    <li>서울특별시 열린데이터광장 대기질 정보 — 서울 자치구별 보강</li>
+    <li>OpenWeatherMap Air Pollution API — 전 세계 대기오염 보조 소스</li>
+    <li>기상청(KMA) 공공데이터 — 기상 실황 보조 신호</li>
+    <li>네이버 뉴스 검색 OpenAPI — "미세먼지" 관련 최신 뉴스 조회</li>
+    <li>건강보험심사평가원(HIRA) 병원정보서비스 · 보건복지부 응급의료기관 — 근처 병원·보건소 조회</li>
 </ul>
 
 <!-- 7 -->
 <h2>7. 정보주체의 권리·의무 및 행사방법</h2>
-<p>이용자는 언제든지 다음의 권리를 행사할 수 있습니다.</p>
+<p>이용자는 「개인정보 보호법」 제35조 내지 제37조의2에 따라 언제든지 다음의 권리를 행사할 수 있습니다.</p>
 <ul>
-    <li>개인정보 <strong>열람</strong>, <strong>정정·삭제</strong>, <strong>처리정지</strong>, <strong>동의 철회</strong> 요구</li>
+    <li><strong>열람권</strong>: 본인의 개인정보에 대한 열람 요구</li>
+    <li><strong>정정·삭제권</strong>: 사실과 다른 개인정보의 정정 또는 삭제 요구</li>
+    <li><strong>처리정지권</strong>: 개인정보 처리의 일시 또는 영구 정지 요구</li>
+    <li><strong>동의 철회권</strong>: 수집·이용·제공·국외이전 등 개별 동의에 대한 철회</li>
+    <li><strong>전송요구권</strong>: 「개인정보 보호법」 제35조의2에 따라 본인의 개인정보를 다른 개인정보처리자에게 전송할 것을 요구 (단, 앱은 현재 다른 처리자로의 직접 전송을 지원하지 않으며, 이용자가 요청 시 본인에게 사본을 제공하는 방식으로 대응)</li>
+    <li><strong>자동화된 결정에 대한 거부권·설명요구권</strong>: 본 방침 제16조 참조</li>
     <li>만 14세 미만 아동의 경우, 법정대리인이 해당 아동의 권리를 대리 행사</li>
 </ul>
-<p>권리 행사는 아래 방법으로 요청할 수 있습니다.</p>
+
+<h3>권리 행사 방법 (앱 내 자가서비스)</h3>
+<p>아래 메뉴에서 즉시 권리를 행사할 수 있으며, 별도의 신청·승인 절차 없이 본인이 직접 처리 가능합니다.</p>
 <ul>
-    <li>앱 내 <strong>설정 &gt; 개인정보 관리</strong> 메뉴에서 직접 처리</li>
-    <li>개인정보 보호책임자 이메일 <code>joyss00000@gmail.com</code>으로 서면 요청</li>
+    <li><strong>설정 → 동의 관리</strong>: 마케팅·야간 광고 동의 ON/OFF, 위치 권한 회수 안내</li>
+    <li><strong>설정 → 내 데이터 관리 → 데이터 내보내기</strong>: 일기·복약·등록 장소를 JSON 파일로 추출</li>
+    <li><strong>설정 → 내 데이터 관리 → 내 데이터 모두 삭제</strong>: 단말 내부 모든 개인정보 영구 삭제 + 서버에 보관 중인 FCM 토큰·단말 정보 즉시 삭제 요청</li>
+    <li><strong>앱 삭제</strong>: 설치된 앱과 단말 내부 데이터 일괄 삭제</li>
 </ul>
-<p>요청 접수 후 지체 없이 처리하며, 정당한 사유가 없는 한 <strong>10일 이내</strong>에 결과를 통지합니다.</p>
+
+<p>위 방법으로 처리가 어렵거나 추가적인 권리 행사가 필요한 경우, 개인정보 보호책임자 이메일 <code>joyss00000@gmail.com</code>으로 서면 요청하실 수 있습니다. 요청 접수 후 정당한 사유가 없는 한 <strong>10일 이내</strong>에 결과를 통지합니다.</p>
 
 <!-- 8 -->
 <h2>8. 개인정보 파기 절차 및 방법</h2>
@@ -378,9 +411,30 @@
 <h2>15. 개인정보 처리방침의 변경</h2>
 <p>본 방침은 법령·정책의 변경 또는 서비스 변경 사항을 반영하기 위해 개정될 수 있습니다. 중요한 내용이 변경될 경우, 시행 <strong>7일 전</strong>(이용자에게 불리한 변경의 경우 <strong>30일 전</strong>) 앱 내 공지 또는 푸시 알림으로 고지합니다.</p>
 
+<!-- 16 -->
+<h2>16. 자동화된 결정에 관한 안내</h2>
+<p>「개인정보 보호법」 제37조의2에 따라 앱이 운영하는 자동화된 결정의 내용을 다음과 같이 안내합니다.</p>
 <ul>
-    <li>최종 개정일: 2026년 4월 20일</li>
-    <li>시행일: 2026년 5월 1일</li>
+    <li><strong>대기질 등급 자동 판정</strong>: 외부 공공·민간 데이터를 기반으로 PM2.5·PM10 수치를 다수결/최악/평균 알고리즘으로 집계하여 5단계 등급(매우좋음·좋음·보통·나쁨·매우나쁨)을 자동 산정합니다.</li>
+    <li><strong>위치별 알림 자동 발송</strong>: 이용자가 등록한 장소를 출발한 것이 단말기 내 Geofencing API로 감지되면, 그 좌표의 대기질 등급에 따라 알림 메시지를 자동 발송합니다.</li>
+    <li><strong>호흡기 약 자동 강조</strong>: 대기질 등급이 "나쁨" 이상일 때, 이용자가 등록한 약 중 "호흡기" 카테고리에 해당하는 약을 UI 상에서 강조 표시합니다.</li>
+</ul>
+<p>위 자동화된 결정은 <strong>이용자의 권리·의무에 중대한 영향을 미치지 않으며</strong>, 이용자는 다음과 같이 자동화된 결정을 거부하거나 설명을 요구할 수 있습니다.</p>
+<ul>
+    <li><strong>거부 방법</strong>: 설정 → 알림 설정에서 자동 알림 OFF, 위치 권한 회수, 또는 앱 삭제</li>
+    <li><strong>설명 요구</strong>: <code>joyss00000@gmail.com</code>으로 자동화된 결정의 기준·로직에 대한 설명 요청 가능</li>
+</ul>
+
+<!-- 17 -->
+<h2>17. 행태정보의 수집·이용 및 거부에 관한 안내</h2>
+<p>앱은 <strong>광고 식별자(AAID), 행태정보(이용자의 활동 추적 정보)를 수집·이용·제공하지 않습니다.</strong> 또한 외부 광고 네트워크 SDK를 일체 사용하지 않으며, 맞춤형 광고를 제공하지 않습니다.</p>
+<p>향후 광고 기능을 추가할 경우 본 방침을 개정하고 별도의 명시적 동의를 받은 후에만 행태정보 수집·이용을 시작합니다.</p>
+
+<!-- 18 -->
+<h2>18. 부칙</h2>
+<ul>
+    <li>최초 시행일: 2026년 5월 1일</li>
+    <li>최종 개정일: 2026년 4월 27일</li>
 </ul>
 
 <footer>

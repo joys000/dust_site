@@ -12,7 +12,7 @@
 <!-- Open Graph / 메신저·SNS 공유 -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="미세먼지 알리미 — 한눈에 보이는 우리 동네 미세먼지" />
-<meta property="og:description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 신재우 1인 개발 안드로이드 앱." />
+<meta property="og:description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 쨍이 1인 개발 안드로이드 앱." />
 <meta property="og:image" content="app_icon_512.png" />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:site_name" content="미세먼지 알리미" />
@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="app_icon_512.png" />
 
 <title>미세먼지 알리미 — 한눈에 보이는 우리 동네 미세먼지</title>
-<meta name="description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 신재우 1인 개발 안드로이드 앱." />
+<meta name="description" content="현재 위치의 미세먼지 농도(PM2.5·PM10)를 1초 안에 측정. 출시 직후 광고 없이 완전 무료. 쨍이 1인 개발 안드로이드 앱." />
 <!-- TODO: 실제 도메인 확정 후 https://your-domain.com/ 으로 교체 (og:url, JSON-LD url 도 함께) -->
 <!-- <link rel="canonical" href="https://your-domain.com/" /> -->
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -650,10 +650,148 @@
     <div class="dm-note">'예'를 선택하시면 짧은 폼이 새 탭에 열려요<br/>(이름 · 이메일 · 송금일 · 한 마디 응원)</div>
   </div>
 </div>
+
+<!-- 사전알림 신청 팝업 -->
+<style>
+  .prereg-overlay {
+    position: fixed; inset: 0; background: rgba(31,26,23,.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 9999; padding: 20px; backdrop-filter: blur(4px);
+  }
+  .prereg-overlay.show { display: flex; animation: pgFade .25s ease-out; }
+  @keyframes pgFade { from { opacity: 0; } to { opacity: 1; } }
+  .prereg-card {
+    background: #fff; border: 2px solid var(--ink, #1F1A17);
+    border-radius: 24px; max-width: 440px; width: 100%;
+    padding: 28px 26px 22px; position: relative;
+    box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    animation: pgPop .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pgPop { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .prereg-close {
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--cream, #FFF7E5); border: 1.5px solid var(--ink, #1F1A17);
+    cursor: pointer; font-size: 16px; font-weight: 800;
+    display: grid; place-items: center; padding: 0; font-family: inherit;
+    transition: .15s;
+  }
+  .prereg-close:hover { background: var(--coral, #FF6B47); color: #fff; }
+  .prereg-em { font-size: 56px; line-height: 1; text-align: center; margin: 4px 0 14px; }
+  .prereg-title {
+    font-size: 24px; font-weight: 800; letter-spacing: -.02em;
+    text-align: center; margin: 0 0 8px; color: var(--ink, #1F1A17);
+  }
+  .prereg-title em { color: var(--coral, #FF6B47); font-style: normal; }
+  .prereg-desc {
+    font-size: 14.5px; color: var(--ink-2, #4A4339);
+    text-align: center; margin: 0 0 18px; line-height: 1.65;
+  }
+  .prereg-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; background: var(--coral, #FF6B47); color: #fff;
+    border-radius: 999px; font-size: 11.5px; font-weight: 800;
+    margin-bottom: 4px; letter-spacing: .04em;
+  }
+  .prereg-bullets {
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--cream, #FFF7E5); padding: 14px 16px;
+    border: 1.5px solid var(--ink, #1F1A17); border-radius: 14px;
+    margin: 0 0 18px; font-size: 13.5px; color: var(--ink-2, #4A4339);
+  }
+  .prereg-bullets div { display: flex; gap: 8px; align-items: flex-start; }
+  .prereg-bullets b { color: var(--ink, #1F1A17); }
+  .prereg-cta {
+    display: block; width: 100%; padding: 16px 18px;
+    background: var(--coral, #FF6B47); color: #fff;
+    border: 1.5px solid var(--ink, #1F1A17); border-radius: 14px;
+    font-family: inherit; font-size: 15.5px; font-weight: 800;
+    text-align: center; text-decoration: none; cursor: pointer;
+    transition: .15s; box-shadow: 4px 4px 0 var(--ink, #1F1A17);
+  }
+  .prereg-cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink, #1F1A17); }
+  .prereg-skip {
+    background: none; border: none; cursor: pointer;
+    color: var(--ink-3, #847A6E); font-size: 12.5px; font-weight: 700;
+    text-decoration: underline; padding: 12px 0 4px;
+    display: block; margin: 0 auto; font-family: inherit;
+  }
+  .prereg-hint { font-size: 11.5px; color: var(--ink-3, #847A6E); text-align: center; margin: 10px 0 0; line-height: 1.5; }
+  @media (max-width: 480px) {
+    .prereg-card { padding: 24px 20px 18px; border-radius: 20px; }
+    .prereg-title { font-size: 20px; }
+    .prereg-em { font-size: 44px; }
+  }
+</style>
+<div class="prereg-overlay" id="preregOverlay" role="dialog" aria-modal="true" aria-labelledby="preregTitle">
+  <div class="prereg-card">
+    <button class="prereg-close" id="preregClose" type="button" aria-label="닫기">×</button>
+    <div class="prereg-em">🔔</div>
+    <div style="text-align:center"><span class="prereg-badge">2026.05.15 출시 예정</span></div>
+    <h3 class="prereg-title" id="preregTitle">출시 첫날,<br/><em>알아서 알려드릴게요.</em></h3>
+    <p class="prereg-desc">미세먼지 알리미가 곧 만나러 가요. 사전 알림 신청하시면 출시 즉시 메일 한 통으로 알려드릴게요.</p>
+    <div class="prereg-bullets">
+      <div>📧 <span><b>이메일 1회 알림</b>만 보내요. 마케팅 메일 없음.</span></div>
+      <div>🗓 <span>출시 후 <b>30일 내 자동 삭제</b>되는 정보예요.</span></div>
+      <div>💬 <span>같은 폼에서 <b>피드백·기능 제안</b>도 받아요.</span></div>
+    </div>
+    <a class="prereg-cta" href="https://forms.gle/W6aDA9DCMDtbSWo88" target="_blank" rel="noopener" id="preregGo">📝 1분 만에 사전 알림 신청 →</a>
+    <p class="prereg-hint">구글 폼으로 이동해요 · 새 탭에서 열려요</p>
+    <button class="prereg-skip" id="preregSkip" type="button">다음에 할게요</button>
+  </div>
+</div>
+<script>
+(function() {
+  var KEY = 'preregPopupSeen_v1';
+  var overlay = document.getElementById('preregOverlay');
+  var btnClose = document.getElementById('preregClose');
+  var btnSkip  = document.getElementById('preregSkip');
+  var btnGo    = document.getElementById('preregGo');
+  if (!overlay) return;
+
+  function dismiss() {
+    overlay.classList.remove('show');
+    try { localStorage.setItem(KEY, '1'); } catch(e) {}
+  }
+  function show() {
+    overlay.classList.add('show');
+  }
+
+  // 한 번 본 사용자에겐 다시 안 띄움
+  var seen = false;
+  try { seen = localStorage.getItem(KEY) === '1'; } catch(e) {}
+
+  if (!seen) {
+    // 페이지 로딩 4초 후 자동 표시
+    setTimeout(show, 4000);
+  }
+
+  btnClose.addEventListener('click', dismiss);
+  btnSkip.addEventListener('click', dismiss);
+  // CTA 클릭 시에도 다시 안 보이게
+  btnGo.addEventListener('click', function() {
+    try { localStorage.setItem(KEY, '1'); } catch(e) {}
+    setTimeout(function() { overlay.classList.remove('show'); }, 200);
+  });
+  // 배경 클릭으로 닫기
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) dismiss();
+  });
+  // ESC 키로 닫기
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('show')) dismiss();
+  });
+})();
+</script>
+
 <footer>
   <div class="container foot-grid">
     <div>© 2026 쨍이 · 미세먼지 알리미 · Made with care 💛</div>
+<<<<<<< HEAD
     <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="terms_of_service.html" target="_blank">서비스 이용약관</a><a href="location_service_terms.html" target="_blank">위치기반서비스 약관</a><a href="open_source_licenses.html" target="_blank">오픈소스 라이선스</a><a href="mailto:joyss00000@gmail.com">문의·피드백 메일</a><a  href="download.html">다운로드 안내</a></div>
+=======
+    <div class="foot-links"><a href="privacy_policy.html" target="_blank">개인정보 처리방침</a><a href="terms_of_service.html" target="_blank">서비스 이용약관</a><a href="location_service_terms.html" target="_blank">위치기반서비스 약관</a><a href="open_source_licenses.html" target="_blank">오픈소스 라이선스</a><a href="https://forms.gle/HF3SkeNySvWvCG4j8" target="_blank" rel="noopener">📝 의견·문의 보내기</a><a  href="download.html">다운로드 안내</a></div>
+>>>>>>> 882a5a5 (Site update: new screenshots, demo videos, legal docs)
   </div>
 </footer>
 <script src="donors-data.js"></script>`r`n<script src="script.js"></script>

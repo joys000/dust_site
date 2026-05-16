@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>계정·데이터 삭제 안내 - 미세먼지 알리미</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; background: #ffffff; color: #1e293b; font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "맑은 고딕", sans-serif; line-height: 1.7; font-size: 15px; -webkit-text-size-adjust: 100%; }
+        .container { max-width: 760px; margin: 0 auto; padding: 24px 20px 60px 20px; }
+        header { border-bottom: 2px solid #3b82f6; padding-bottom: 16px; margin-bottom: 20px; }
+        h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; }
+        .meta { font-size: 13px; color: #64748b; }
+        .intro { background: #f1f5f9; padding: 14px 16px; border-radius: 10px; margin: 18px 0 26px 0; font-size: 14px; color: #334155; }
+        h2 { font-size: 17px; font-weight: 700; color: #0f172a; margin: 32px 0 10px 0; padding-left: 10px; border-left: 4px solid #3b82f6; }
+        p { margin: 6px 0 12px 0; }
+        ul, ol { padding-left: 22px; margin: 6px 0 14px 0; }
+        li { margin-bottom: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0 18px 0; font-size: 13.5px; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background: #f8fafc; font-weight: 700; color: #334155; }
+        code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; font-size: 13px; color: #334155; }
+        .notice { background: #fff7ed; border-left: 4px solid #f97316; padding: 12px 16px; margin: 16px 0; font-size: 14px; color: #7c2d12; border-radius: 0 8px 8px 0; }
+        .contact { background: #ecfdf5; border-left: 4px solid #10b981; padding: 14px 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b; text-align: center; }
+        @media (max-width: 480px) { .container { padding: 16px 14px 40px 14px; } h1 { font-size: 20px; } h2 { font-size: 16px; } table { font-size: 12.5px; } th, td { padding: 6px 8px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>계정·데이터 삭제 안내</h1>
+    <div class="meta">
+        서비스명: <strong>미세먼지 알리미</strong> (Android)<br>
+        최종 갱신: 2026년 5월 9일
+    </div>
+</header>
+
+<div class="intro">
+    본 페이지는 <strong>미세먼지 알리미</strong> 앱의 이용자가 계정 또는 서버에 보관된 개인정보의 삭제를 요청하는 절차를 안내합니다. 「개인정보 보호법」 제36조(개인정보의 정정·삭제)에 따른 권리 행사 절차이며, Google Play 정책상 앱 미설치 상태에서도 삭제를 요청할 수 있도록 본 웹 페이지를 제공합니다.
+</div>
+
+<h2>1. 본 앱의 데이터 구조 안내</h2>
+<p>먼저 데이터가 어디에 보관되는지 이해해 주세요.</p>
+
+<table>
+    <thead>
+        <tr><th>데이터</th><th>보관 위치</th><th>삭제 방법</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>설정값·즐겨찾기·복약 기록·일기·운세 사주</td>
+            <td>이용자 단말 (Room DB / DataStore)</td>
+            <td>앱 삭제 → OS가 자동 제거</td>
+        </tr>
+        <tr>
+            <td>FCM 토큰·단말 정보</td>
+            <td>본 서비스 서버 (Supabase, 한국 서울 리전)</td>
+            <td>아래 양식으로 요청</td>
+        </tr>
+        <tr>
+            <td>토스 간편 로그인 표시명(이름)</td>
+            <td>이용자 단말 + 본 서비스 서버</td>
+            <td>아래 양식 + 토스 측 연결 해제</td>
+        </tr>
+        <tr>
+            <td>오류·충돌 로그</td>
+            <td>Firebase Crashlytics (Google)</td>
+            <td>아래 양식으로 요청</td>
+        </tr>
+        <tr>
+            <td>LLM 호출 메타 (호출 시각·모델·토큰 수)</td>
+            <td>본 서비스 서버 (30일 자동 삭제)</td>
+            <td>30일 내 자동 파기 / 즉시 삭제는 아래 양식</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>2. 가장 빠른 삭제 — 앱 내 메뉴 (앱 설치된 경우)</h2>
+<ol>
+    <li>미세먼지 알리미 앱 실행</li>
+    <li><strong>설정 &gt; 개인정보 관리 &gt; 데이터 초기화</strong> 메뉴 선택</li>
+    <li>"모든 데이터 삭제" 확인 → 단말 데이터 + 서버 데이터 동시 삭제</li>
+</ol>
+<p>이 방법은 즉시 처리되며 별도 신청·대기 시간이 없습니다.</p>
+
+<h2>3. 앱이 설치되지 않은 경우 — 이메일 요청</h2>
+<p>앱을 이미 삭제하셨거나 단말이 분실/파손된 경우, 아래 양식대로 이메일을 보내주시면 운영자가 서버 측 데이터를 직접 삭제합니다.</p>
+
+<div class="contact">
+    <strong>받는 사람</strong>: <code>joyss00000@gmail.com</code><br>
+    <strong>제목</strong>: [데이터 삭제 요청] 미세먼지 알리미<br>
+    <strong>본문 포함 정보</strong> (식별 가능 범위에서 알고 계신 만큼):
+    <ul style="margin-top:8px;">
+        <li>토스 간편 로그인 사용 시: 등록 시 사용한 이름</li>
+        <li>설치 시점·국가·OS 버전 (대략): 예) 2026년 4월, 한국, Android 14</li>
+        <li>FCM 토큰을 알고 계시다면 함께 첨부 (선택)</li>
+        <li>요청 항목: "모든 서버 데이터 삭제" 또는 "특정 항목만 삭제(예: 마케팅 동의 기록)"</li>
+    </ul>
+</div>
+
+<h2>4. 처리 기간</h2>
+<ul>
+    <li>접수 후 <strong>10일 이내</strong> 처리·결과 통지 (「개인정보 보호법」 제36조)</li>
+    <li>서버 데이터는 즉시 비활성 마킹 후 <strong>30일 이내 hard delete</strong> (이의 제기·복구 요청 대비 grace period)</li>
+    <li>이용자가 즉시 hard delete 를 명시 요청하시면 grace period 없이 즉시 영구 삭제</li>
+</ul>
+
+<h2>5. 토스 간편 로그인 연결 해제</h2>
+<p>토스 측 연결 해제는 본 서비스에서 자동으로 처리되지 않습니다. 토스 측 데이터까지 함께 정리하시려면 아래 경로를 직접 실행해 주세요.</p>
+<ul>
+    <li><strong>토스 앱 &gt; 전체 &gt; 설정 &gt; 토스 인증/간편로그인 관리</strong> → 미세먼지 알리미 연결 해제</li>
+</ul>
+<p>본 서비스 측 데이터 삭제는 위 1·2·3절 절차로 별도 진행이 필요합니다.</p>
+
+<h2>6. 삭제되는 데이터 / 보존되는 데이터</h2>
+<p>법령상 보존 의무가 있는 일부 기록은 삭제 요청에도 불구하고 보존됩니다.</p>
+<ul>
+    <li>✅ <strong>즉시 삭제</strong>: FCM 토큰, 단말 정보, 설정값, 즐겨찾기, 복약 기록, 일기, 운세 사주 입력, LLM 호출 메타, 토스 표시명</li>
+    <li>⚠ <strong>법령상 보존</strong> (요청과 무관하게 일정 기간 유지): 마케팅 동의·철회 기록 (분쟁 대응 자체 정책 3년), 오류 로그 (Crashlytics 정책 90일)</li>
+</ul>
+
+<h2>7. 문의</h2>
+<p>삭제 절차에 어려움이 있거나 처리 결과에 이의가 있는 경우 운영자에게 직접 문의하시거나 개인정보 침해신고센터(국번 없이 118)에 연락하실 수 있습니다.</p>
+<table>
+    <tbody>
+        <tr><th style="width: 30%;">상호</th><td>미세먼지 알리미 (간이과세자)</td></tr>
+        <tr><th>대표자 / 보호책임자</th><td>신재우</td></tr>
+        <tr><th>사업자등록번호</th><td>597-41-01578</td></tr>
+        <tr><th>이메일</th><td><code>joyss00000@gmail.com</code></td></tr>
+    </tbody>
+</table>
+
+<footer>
+    © 2026 미세먼지 알리미. All rights reserved.<br>
+    본 페이지는 Google Play Console 의 계정·데이터 삭제 URL 필드 등록용 공식 안내입니다.
+</footer>
+
+</div>
+</body>
+</html>
